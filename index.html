@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDIO REFERENCE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 强制使用无衬线字体，模拟 Helvetica/Swiss 风格 */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f2f2f2; /* 稍微带一点灰的背景，不刺眼 */
+        }
+        /* 去除滚动条样式但保留功能（可选） */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .marquee p {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+    </style>
+</head>
+<body class="text-black bg-white selection:bg-black selection:text-white">
+
+    <!-- 顶部导航：简单的线条分割 -->
+    <nav class="fixed top-0 w-full z-50 bg-white border-b border-black flex justify-between items-stretch text-sm uppercase tracking-widest h-14">
+        <!-- Logo区 -->
+        <div class="flex items-center px-6 border-r border-black font-bold text-lg hover:bg-black hover:text-white transition-colors cursor-pointer">
+            Your Studio.
+        </div>
+        
+        <!-- 滚动文字条 (灵感来自 ABCD 的动态感) -->
+        <div class="flex-1 flex items-center overflow-hidden border-r border-black hidden md:flex">
+            <div class="marquee w-full">
+                <p>Welcome to our design practice. Based in Shanghai. Focus on Branding, Digital, and Art Direction. </p>
+            </div>
+        </div>
+
+        <!-- 菜单 -->
+        <div class="flex">
+            <a href="#" class="flex items-center px-8 border-l border-black hover:bg-black hover:text-white transition-colors">Work</a>
+            <a href="#" class="flex items-center px-8 border-l border-black hover:bg-black hover:text-white transition-colors">Info</a>
+        </div>
+    </nav>
+
+    <!-- 主体内容：留出顶部导航的高度 -->
+    <main class="pt-14">
+
+        <!-- Hero Section：大字号排版 -->
+        <section class="min-h-[80vh] flex flex-col justify-end p-6 md:p-12 border-b border-black">
+            <h1 class="text-6xl md:text-9xl font-bold leading-[0.85] tracking-tighter uppercase">
+                We Create<br>
+                Visual<br>
+                Identity.
+            </h1>
+            <div class="flex justify-between items-end mt-12 md:mt-24">
+                <p class="max-w-md text-sm md:text-base leading-relaxed">
+                    [ 2024-2026 ]<br>
+                    我们探索视觉语言的可能性，<br>
+                    在混乱中建立秩序。
+                </p>
+                <div class="animate-bounce text-2xl">↓</div>
+            </div>
+        </section>
+
+        <!-- 作品列表：模仿 ABCD 的目录式 / 网格风格 -->
+        <section class="border-b border-black">
+            <!-- 表头 -->
+            <div class="grid grid-cols-12 gap-0 text-xs uppercase tracking-widest border-b border-black py-3 px-4 bg-gray-50">
+                <div class="col-span-1 hidden md:block">No.</div>
+                <div class="col-span-8 md:col-span-6">Project Name</div>
+                <div class="col-span-3 md:col-span-3 text-right md:text-left">Category</div>
+                <div class="col-span-2 hidden md:block text-right">Year</div>
+            </div>
+
+            <!-- 作品 1 -->
+            <div class="group relative border-b border-black cursor-pointer hover:bg-black hover:text-white transition-colors">
+                <div class="grid grid-cols-12 gap-0 py-8 px-4 items-center">
+                    <div class="col-span-1 hidden md:block font-mono text-gray-400 group-hover:text-gray-500">01</div>
+                    <div class="col-span-8 md:col-span-6 text-2xl md:text-4xl font-bold">LUMINOUS LAB</div>
+                    <div class="col-span-3 md:col-span-3 text-xs md:text-sm uppercase">Branding / VI</div>
+                    <div class="col-span-2 hidden md:block text-right font-mono">2025</div>
+                </div>
+                <!-- 悬浮时显示的图片 (这里用绝对定位，你需要根据设计决定是放这还是单独做网格) -->
+                <!-- 为了简单，这里先做成点击进入的效果，不放悬浮图，保持干净 -->
+            </div>
+
+            <!-- 作品 2 -->
+            <div class="group relative border-b border-black cursor-pointer hover:bg-black hover:text-white transition-colors">
+                <div class="grid grid-cols-12 gap-0 py-8 px-4 items-center">
+                    <div class="col-span-1 hidden md:block font-mono text-gray-400 group-hover:text-gray-500">02</div>
+                    <div class="col-span-8 md:col-span-6 text-2xl md:text-4xl font-bold">TYPE MUSEUM</div>
+                    <div class="col-span-3 md:col-span-3 text-xs md:text-sm uppercase">Web Design</div>
+                    <div class="col-span-2 hidden md:block text-right font-mono">2024</div>
+                </div>
+            </div>
+
+            <!-- 作品 3 -->
+            <div class="group relative border-black cursor-pointer hover:bg-black hover:text-white transition-colors">
+                <div class="grid grid-cols-12 gap-0 py-8 px-4 items-center">
+                    <div class="col-span-1 hidden md:block font-mono text-gray-400 group-hover:text-gray-500">03</div>
+                    <div class="col-span-8 md:col-span-6 text-2xl md:text-4xl font-bold">FUTURE ARCHIVE</div>
+                    <div class="col-span-3 md:col-span-3 text-xs md:text-sm uppercase">Editorial</div>
+                    <div class="col-span-2 hidden md:block text-right font-mono">2024</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 图片网格展示区 (Besign 风格的大图) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 border-b border-black">
+            <div class="border-r border-black p-4 md:p-8 flex flex-col justify-between h-[60vh] hover:bg-gray-100 transition">
+                <div class="w-full h-4/5 bg-gray-300 overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1541462608143-0c325ef7a481?q=80&w=1920&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                </div>
+                <div class="flex justify-between items-end border-t border-black pt-4">
+                    <h3 class="text-xl font-bold">Mono Series</h3>
+                    <span class="text-xs">[ VIEW CASE ]</span>
+                </div>
+            </div>
+            <div class="p-4 md:p-8 flex flex-col justify-between h-[60vh] hover:bg-gray-100 transition">
+                <div class="w-full h-4/5 bg-gray-300 overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1506784926709-22f1ec754f02?q=80&w=1920&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                </div>
+                <div class="flex justify-between items-end border-t border-black pt-4">
+                    <h3 class="text-xl font-bold">Dark Matter</h3>
+                    <span class="text-xs">[ VIEW CASE ]</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 极简页脚 -->
+    <footer class="p-6 md:p-12 text-sm uppercase grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+            <h4 class="font-bold mb-4">Contact</h4>
+            <p>hello@yourstudio.com</p>
+            <p>+86 138 0000 0000</p>
+        </div>
+        <div>
+            <h4 class="font-bold mb-4">Social</h4>
+            <ul class="space-y-1">
+                <li><a href="#" class="hover:underline">Instagram</a></li>
+                <li><a href="#" class="hover:underline">Behance</a></li>
+                <li><a href="#" class="hover:underline">Red (小红书)</a></li>
+            </ul>
+        </div>
+        <div class="md:col-span-2 md:text-right flex flex-col justify-between">
+            <p class="text-xs text-gray-500">© 2026 Your Studio Name. <br>Design by You, Code by AI.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,69 +1,46 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DCDE STUDIO</title>
+    <title>DCDE</title>
+    <link rel="icon" type="image/svg+xml" href="logo-1.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@700&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Header -->
+    <!-- Header 区域 -->
     <header class="site-header nav-row-border">
-        <!-- 导航链接：应用 hover-link-style -->
-        <a href="#studio" class="nav-text hover-link-style pos-1" data-desc="这里存放着所有的设计归档与实验记录。">Studio</a>
-        <a href="#info"   class="nav-text hover-link-style pos-2" data-desc="关于DCDE的理念与历史。">Info</a>
-        <a href="#collab" class="nav-text hover-link-style pos-3" data-desc="发起新的设计项目。">Collab</a>
-        <a href="#hub"    class="nav-text hover-link-style pos-4" data-desc="社区与连接。">Hub</a>
+
+        <!-- 导航链接：加上了 hover-link 类 -->
+        <a href="#studio" class="nav-text pos-1 hover-link" data-desc="思考的实体映射。这里存放所有的设计归档与实验记录。">Studio</a>
+        <a href="info/index.html" class="nav-text pos-2 hover-link"
+            data-desc="在秩序中寻找变量。DCDE 致力于构建中学生设计美学的实验基地。">Info</a>
+        <a href="#collab" class="nav-text pos-3 hover-link" data-desc="共鸣的发生地。寻找合作伙伴，发起未知的创造。">Collab</a>
+        <a href="#hub" class="nav-text pos-4 hover-link" data-desc="链接年轻的孤岛。进入社区，分享你的锐利观点。">Hub</a>
 
         <div id="global-desc"></div>
-        <img src="logo-2.svg" class="logo-svg" alt="DCDE Logo">
+        <picture class="logo-svg">
+            <source srcset="logo-3.svg" media="(max-width: 768px)">
+            <img src="logo-2.svg" alt="DCDE Logo">
+        </picture>
     </header>
 
-    <!-- Main Grid -->
+    <!-- Main 区域 -->
     <main class="grid-container">
-        <!-- JS 渲染 -->
+        <!-- JS 自动填充 -->
     </main>
 
-    <!-- Drawer -->
-    <div id="project-drawer">
-        <button id="close-drawer">
-            <!-- 箭头：应用 hover-link-style -->
-            <span class="hover-link-style">↓</span>
-        </button>
-        <div id="drawer-content"></div>
-    </div>
-
-    <!-- Data & Script -->
-    <script>
-        // 内嵌Data方便演示，实际可放在 data.js
-        const projectsData = [
-            {
-                id: "01",
-                title: "Project Alpha",
-                link: "project-01/index.html",
-                image: "project-01/cover.jpg", 
-                size: "small"
-            },
-            {
-                id: "02",
-                title: "Project Beta",
-                link: "project-02/index.html", // 记得建文件夹
-                image: "project-02/cover.jpg",
-                size: "large"
-            },
-            {
-                id: "03",
-                title: "Project Gamma",
-                link: "project-03/index.html", // 记得建文件夹
-                image: "project-03/cover.jpg",
-                size: "small"
-            }
-        ];
-    </script>
+    <!-- 脚本 -->
+    <script src="data.js"></script>
     <script src="main.js"></script>
 </body>
+
 </html>

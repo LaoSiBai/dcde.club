@@ -1,6 +1,6 @@
 // main.js
 
-// --- 1. 导航交互 ---
+// 1. 导航交互
 function initNavInteraction() {
     const navLinks = document.querySelectorAll('.nav-text');
     const globalDesc = document.getElementById('global-desc');
@@ -15,88 +15,45 @@ function initNavInteraction() {
     });
 }
 
-// --- 2. 抽屉逻辑 ---
-const drawer = document.getElementById('project-drawer');
-const drawerContent = document.getElementById('drawer-content');
-const closeBtn = document.getElementById('close-drawer');
-
-function openDrawer(url) {
-    drawerContent.innerHTML = '<div style="padding:5vw; text-align:center;">LOADING...</div>';
-    
-    // 打开抽屉
-    drawer.classList.add('active');
-    
-    // 锁死主页滚动
-    document.body.classList.add('no-scroll');
-    
-    fetch(url)
-        .then(response => response.text())
-        .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const content = doc.querySelector('.project-page-container');
-            
-            if (content) {
-                drawerContent.innerHTML = '';
-                drawerContent.appendChild(content);
-            } else {
-                drawerContent.innerHTML = doc.body.innerHTML;
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            drawerContent.innerHTML = 'ERROR.';
-        });
-}
-
-closeBtn.addEventListener('click', () => {
-    // 关闭抽屉
-    drawer.classList.remove('active');
-    
-    // 恢复主页滚动
-    document.body.classList.remove('no-scroll');
-    
-    setTimeout(() => {
-        drawerContent.innerHTML = '';
-    }, 600);
-});
-
-// --- 3. 渲染作品 ---
+// 2. 渲染作品
 const gridContainer = document.querySelector('.grid-container');
 
 function renderProjects() {
-    if(typeof projectsData === 'undefined') return;
+    if (typeof projectsData === 'undefined' || !gridContainer) return;
+
+    gridContainer.innerHTML = '';
 
     projectsData.forEach(project => {
         const cell = document.createElement('div');
-        cell.classList.add('grid-cell', 'p-0');
+        cell.classList.add('grid-cell', 'p-0', 'scroll-reveal');
         if (project.size === 'large') {
             cell.classList.add('big-square');
         }
-        
+
         const link = document.createElement('a');
         link.href = project.link;
         link.className = 'project-link';
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            openDrawer(project.link);
-        });
 
         link.innerHTML = `
             <img src="${project.image}" class="project-img" alt="${project.title}">
         `;
-        
+
         cell.appendChild(link);
         gridContainer.appendChild(cell);
     });
+
+    renderFooter();
+    initScrollObserver();
 }
 
-// --- 4. 页脚 ---
+// 3. 页脚
 function renderFooter() {
+    if (!gridContainer) return;
+
     const spacer1 = document.createElement('div');
     spacer1.classList.add('grid-cell');
     gridContainer.appendChild(spacer1);
-    
+
     const spacer2 = document.createElement('div');
     spacer2.classList.add('grid-cell');
     gridContainer.appendChild(spacer2);
@@ -111,8 +68,35 @@ function renderFooter() {
     gridContainer.appendChild(footer);
 }
 
-initNavInteraction();
-renderProjects();
-renderFooter();
+// 4. 滚动动画初始化
+function initScrollObserver() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, 50);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.05,
+        rootMargin: '20px'
+    });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+}
+
+// 7. 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    initNavInteraction();
+
+    const grid = document.querySelector('.grid-container');
+    if (grid && !grid.querySelector('.detail-text') && !grid.classList.contains('detail-grid')) {
+        renderProjects();
+    }
+
+    initScrollObserver();
+});
 
 console.log("System Online.");

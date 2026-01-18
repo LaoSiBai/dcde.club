@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCDE Branding - DCDE</title>
+    <link rel="icon" type="image/svg+xml" href="../logo-1.svg">
+    <!-- Fonts are loaded via @import in style.css -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <main class="grid-container detail-grid">
+
+        <!-- Row 1-2: 封面图 (跨两行) + 底部分割线 -->
+        <div class="grid-cell col-full p-0 cover-square" style="border-bottom: 3px solid var(--brand-color);">
+            <img src="icon.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Cover Image">
+        </div>
+
+        <!-- Row 3: 项目名称 (Col 1) -->
+        <div class="grid-cell project-title-cell" style="grid-column: 1; grid-row: 3;">
+            <!-- 项目名称 -->
+            <p class="detail-text project-title"
+                style="margin: 0; font-weight: var(--font-weight-bold); color: var(--brand-color); font-size: var(--text-title); line-height: 1.2;">
+                DCDE Branding<br>品牌识别系统</p>
+
+            <!-- 元数据 (桌面端显示在项目名称下方) -->
+            <div class="project-meta-desktop"
+                style="display: flex; flex-direction: column; gap: 0.8vw; margin-top: 2vw;">
+                <div>
+                    <span class="meta-label">合作方</span>
+                    <div class="meta-value">Self-Initiated</div>
+                </div>
+                <div>
+                    <span class="meta-label">设计师</span>
+                    <div class="meta-value">DCDE Team</div>
+                </div>
+                <div>
+                    <span class="meta-label">时间</span>
+                    <div class="meta-value">2024 - Present</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 元数据 (移动端显示在右栏) -->
+        <div class="grid-cell project-meta-mobile" style="grid-column: 2; grid-row: 3; display: none;">
+            <div style="display: flex; flex-direction: column; gap: 0.8vw;">
+                <div>
+                    <span class="meta-label">合作方</span>
+                    <div class="meta-value">Self-Initiated</div>
+                </div>
+                <div>
+                    <span class="meta-label">设计师</span>
+                    <div class="meta-value">DCDE Team</div>
+                </div>
+                <div>
+                    <span class="meta-label">时间</span>
+                    <div class="meta-value">2024 - Present</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: 正文 (Cols 2-4) 中英混排 -->
+        <div class="grid-cell col-start-2 col-span-3" style="grid-row: 3;">
+            <div class="detail-text" style="margin: 0;">
+                <p>
+                    DCDE (Design Crew for Design Enthusiasts) 是一个致力于探索中学生设计美学的实验性组织。
+                    <br><br>
+                    在这个项目中，我们试图建立一种全新的视觉语言，将严谨的网格系统与流动的创意表达相结合。
+                    Logo 的设计源自于标准化的几何图形，象征着秩序与规则；而动态的排版和色彩运用，则代表了在规则之下的无限变量与可能性。
+                    <br><br>
+                    核心视觉识别系统不仅应用于数字化平台，还将延展至实体周边、展览物料等多种媒介，构建一个完整、立体的品牌形象。
+                </p>
+                <br><br>
+                <p style="color: var(--desc-gray);">
+                    DCDE (Design Crew for Design Enthusiasts) is an experimental organization dedicated to exploring
+                    design aesthetics among high school students.
+                    <br><br>
+                    In this project, we attempt to establish a new visual language that combines a rigorous grid system
+                    with fluid creative expression. The logo design is derived from standardized geometric shapes,
+                    symbolizing order and rules; while dynamic typography and color application represent infinite
+                    variables and possibilities under those rules.
+                    <br><br>
+                    The core visual identity system is applied not only to digital platforms but also extends to
+                    physical merchandise, exhibition materials, and various other media, building a complete and
+                    three-dimensional brand image.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 细节图片：全宽显示，不受网格限制 -->
+    <section class="detail-images">
+        <img src="icon.png" alt="Detail 1">
+        <img src="../project-01/cover.png" alt="Detail 2">
+    </section>
+
+</body>
+
+</html>

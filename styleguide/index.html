@@ -5,166 +5,334 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design System - DCDE</title>
+    <link rel="icon" type="image/svg+xml" href="../logo-1.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* Styleguide specific styles */
-        .color-swatch {
-            width: 100%;
-            height: 6vw;
-            border: 1px solid #eee;
-            margin-bottom: 0.5vw;
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100vw;
         }
 
-        .spec-label {
-            font-family: 'Space Grotesk', monospace;
-            font-size: 0.8vw;
-            color: var(--desc-gray);
-            margin-bottom: 0.2vw;
+        body {
+            overflow-y: auto;
+            height: auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-logo {
+            width: 400px;
+            height: auto;
             display: block;
         }
 
-        .type-sample {
-            margin-bottom: 2vw;
-            border-bottom: 1px dashed #eee;
-            padding-bottom: 1vw;
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+                padding: 1rem;
+            }
+
+            .page-logo {
+                width: 300px;
+                max-width: 300px;
+            }
+
+            .page-content {
+                padding: 0 1rem 3rem 1rem;
+            }
         }
 
-        .type-sample:last-child {
-            border-bottom: none;
+        /* Page Content */
+        .page-content {
+            padding: 0 2rem 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Color Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .color-card {
+            background: var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .color-swatch {
+            height: 80px;
+        }
+
+        .color-info {
+            padding: 1rem;
+        }
+
+        .color-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .color-value {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        /* Typography */
+        .type-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .type-item {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .type-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .type-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .type-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .type-body {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Interactions */
+        .interaction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .interaction-card {
+            background: var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .interaction-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hover-demo {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .hover-demo:hover {
+            color: var(--brand-color);
+            text-shadow: 0 0 15px rgba(51, 139, 255, 0.6);
+        }
+
+        /* Card Preview */
+        .card-preview {
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(to bottom, #111, #000);
+            border-radius: 16px;
+        }
+
+        .demo-card {
+            width: 150px;
+            height: 150px;
+            background: #111;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .demo-card:hover {
+            border-color: var(--brand-color);
+            box-shadow: 0 0 40px rgba(51, 139, 255, 0.4);
+        }
+
+        .demo-card-text {
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .demo-card:hover .demo-card-text {
+            color: var(--text-color);
+        }
+
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
 
 <body>
-
-    <!-- Header -->
-    <header class="site-header">
-        <div class="nav-row-border" style="height: 100%; width: 100%;">
-            <a href="../index.html" class="nav-text pos-1 hover-link" data-desc="Back to Home">DCDE</a>
-            <div class="nav-text pos-2" style="font-weight: 400;">DESIGN SYSTEM</div>
-            <div class="nav-text pos-4">v1.0 / 2026</div>
-
-            <picture class="logo-svg">
-                <source media="(max-width: 768px)" srcset="../logo-3.svg">
-                <img src="../logo-2.svg" alt="DCDE Logo">
-            </picture>
-
-            <div id="global-desc">Visual Identity & Interaction Guide</div>
-        </div>
+    <!-- Page Header -->
+    <header class="page-header">
+        <picture>
+            <source srcset="../logo-3.svg" media="(max-width: 768px)">
+            <img src="../logo-2.svg" alt="DCDE Logo" class="page-logo">
+        </picture>
+        <a href="../index.html" class="jump-link">← Back to Home</a>
     </header>
 
-    <main class="grid-container detail-grid">
-        <!-- 1. Typography Section Headline -->
-        <div class="grid-cell big-square" style="border-bottom: 1px solid #000;">
-            <div class="detail-text" style="font-size: var(--text-title); margin: 0;">
-                Typographic<br>Hierarchy
-            </div>
-        </div>
-
-        <!-- Typography Samples -->
-        <div class="grid-cell big-square"
-            style="border-bottom: 1px solid #000; align-items: flex-start; justify-content: center;">
-            <div style="width: 90%;">
-                <span class="spec-label">--text-display / Medium (500)</span>
-                <div style="font-size: var(--text-display); font-weight: var(--font-weight-medium); line-height: 1.1;">
-                    Display Type
-                </div>
-            </div>
-        </div>
-
-        <!-- Row 2 -->
-        <div class="grid-cell big-square p-0">
-            <div class="grid-cell" style="display:block;">
-                <div class="type-sample">
-                    <span class="spec-label">--text-title / Bold (700)</span>
-                    <div style="font-size: var(--text-title); font-weight: var(--font-weight-bold);">
-                        Page Title 页面标题
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Colors Section -->
+        <section class="section">
+            <h1 class="section-title">Color Palette</h1>
+            <p class="section-subtitle">全黑主题核心色板</p>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #000000;"></div>
+                    <div class="color-info">
+                        <div class="color-name">--bg-color</div>
+                        <div class="color-value">#000000</div>
                     </div>
                 </div>
-                <div class="type-sample">
-                    <span class="spec-label">--text-subtitle / Medium (500)</span>
-                    <div style="font-size: var(--text-subtitle); font-weight: var(--font-weight-medium);">
-                        Subtitle Navigation 全局描述
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #ffffff;"></div>
+                    <div class="color-info">
+                        <div class="color-name">--text-color</div>
+                        <div class="color-value">#FFFFFF</div>
                     </div>
                 </div>
-                <div class="type-sample">
-                    <span class="spec-label">--text-body / Medium (500)</span>
-                    <div style="font-size: var(--text-body); font-weight: var(--font-weight-medium); width: 80%;">
-                        Body Text. 视觉系统的兼容性与延展性提出了全新的要求。我们审慎延续了上一代「简约、柔和、直观」的品牌视觉基因。
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #338BFF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">--brand-color</div>
+                        <div class="color-value">#338BFF</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #666666;"></div>
+                    <div class="color-info">
+                        <div class="color-name">--text-muted</div>
+                        <div class="color-value">#666666</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #222222;"></div>
+                    <div class="color-info">
+                        <div class="color-name">--border-color</div>
+                        <div class="color-value">#222222</div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="grid-cell big-square p-0">
-            <div class="grid-cell" style="display:block;">
-                <div class="type-sample">
-                    <span class="spec-label">--text-meta-label / Regular (400)</span>
-                    <div
-                        style="font-size: var(--text-meta-label); font-weight: var(--font-weight-regular); text-transform: uppercase;">
-                        Meta Label / Client / Year
-                    </div>
+        <!-- Typography Section -->
+        <section class="section">
+            <h1 class="section-title">Typography</h1>
+            <p class="section-subtitle">Space Grotesk · Google Fonts</p>
+            <div class="type-list">
+                <div class="type-item">
+                    <div class="type-label">Display / 2.5rem / Bold</div>
+                    <div class="type-display">Display Type</div>
                 </div>
-                <div class="type-sample">
-                    <span class="spec-label">--text-meta-value / Medium (500)</span>
-                    <div style="font-size: var(--text-meta-value); font-weight: var(--font-weight-medium);">
-                        Meta Value / 2026 / Bilibili
-                    </div>
+                <div class="type-item">
+                    <div class="type-label">Title / 1.8rem / Bold</div>
+                    <div class="type-title">Page Title 页面标题</div>
                 </div>
-                <div class="type-sample">
-                    <span class="spec-label">Interactions</span>
-                    <a href="#" class="hover-link" style="font-size: var(--text-body);">Hover Link Style</a>
+                <div class="type-item">
+                    <div class="type-label">Body / 1rem / Medium</div>
+                    <div class="type-body">Body Text 正文。这里是正文内容示例。</div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- 2. Colors Section -->
-        <div class="grid-cell big-square" style="border-top: 1px solid #000; border-bottom: 1px solid #000;">
-            <div class="detail-text" style="font-size: var(--text-title); margin: 0;">
-                Color<br>Palette
+        <!-- Interactions Section -->
+        <section class="section">
+            <h1 class="section-title">Interactions</h1>
+            <p class="section-subtitle">交互状态与动效</p>
+            <div class="interaction-grid">
+                <div class="interaction-card">
+                    <div class="interaction-label">Text Glow</div>
+                    <div class="hover-demo">Hover Me</div>
+                </div>
+                <div class="interaction-card">
+                    <div class="interaction-label">Button Style</div>
+                    <a href="#" class="glow-box">Glow Box</a>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="grid-cell big-square" style="border-top: 1px solid #000; border-bottom: 1px solid #000;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; width: 100%;">
-
-                <div>
-                    <div class="color-swatch" style="background-color: var(--brand-color);"></div>
-                    <span class="spec-label">--brand-color</span>
-                    <span style="font-size: var(--text-meta-value);">#338BFF</span>
+        <!-- Card Section -->
+        <section class="section">
+            <h1 class="section-title">Card Component</h1>
+            <p class="section-subtitle">3D 球体卡片样式</p>
+            <div class="card-preview">
+                <div class="demo-card">
+                    <span class="demo-card-text">HOVER</span>
                 </div>
-
-                <div>
-                    <div class="color-swatch" style="background-color: var(--text-color);"></div>
-                    <span class="spec-label">--text-color</span>
-                    <span style="font-size: var(--text-meta-value);">#000000</span>
-                </div>
-
-                <div>
-                    <div class="color-swatch" style="background-color: var(--desc-gray);"></div>
-                    <span class="spec-label">--desc-gray</span>
-                    <span style="font-size: var(--text-meta-value);">#999999</span>
-                </div>
-
-                <div>
-                    <div class="color-swatch"
-                        style="border: 1px solid #338bff40; background-color: rgba(51, 139, 255, 0.25);"></div>
-                    <span class="spec-label">--grid-line-color (Brand Variant)</span>
-                    <span style="font-size: var(--text-meta-value);">--brand-color @ 25% opacity</span>
-                </div>
-
             </div>
+        </section>
 
-    </main>
-
-    <!-- Footer -->
-    <footer style="width: 100%; padding: 2vw; text-align: right; border-top: 1px solid #eee;">
-        <span class="footer-text" style="position: static;">
-            © 2026 DCDE · DESIGN SYSTEM
-        </span>
-    </footer>
-
-    <script src="../main.js"></script>
+        <footer class="page-footer">
+            <span class="footer-text">© 2026 DCDE · DESIGN SYSTEM v2.0</span>
+        </footer>
+    </div>
 </body>
 
 </html>

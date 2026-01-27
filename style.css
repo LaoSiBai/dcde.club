@@ -1,58 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&family=Space+Grotesk:wght@300..700&display=swap');
-
-/* =========================================
-   1. 字体定义
-   ========================================= */
-/* 现在同时从 Google Fonts 加载 Space Grotesk 和 Noto Sans SC */
-
-/* =========================================
-   2. 全局变量
-   ========================================= */
 :root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
     --brand-color: #338BFF;
-    --text-color: #000000;
-    --bg-color: #ffffff;
-    --desc-gray: #999999;
-
-    /* 使用 Noto Sans SC 替代 AlimamaFangYuan */
-    --main-font: 'Space Grotesk', 'Noto Sans SC', sans-serif;
-
-    --grid-cols: 4;
-    --cell-size: 25vw;
-    --grid-line-color: rgba(51, 139, 255, 0.25);
-
-    /* 字重规范 (BEVL: medium/bold=1, light/regular=80) */
-    --font-weight-light: 300;
-    --font-weight-regular: 400;
-    --font-weight-medium: 500;
-    --font-weight-bold: 700;
-
-    /* 字体大小规范 (Desktop - 固定值) */
-    --text-display: 64px;
-    /* Nav Links - 大标题 */
-    --text-title: 48px;
-    /* Project Titles / Info Headlines */
-    --text-subtitle: 32px;
-    /* Global Description */
-    --text-body: 20px;
-    /* Detail Text - 正文 */
-    --text-meta-label: 14px;
-    /* Meta Label */
-    --text-meta-value: 16px;
-    /* Meta Value */
-    --text-footer: 16px;
-    /* Footer */
-}
-
-/* =========================================
-   3. 基础设置
-   ========================================= */
-
-/* 全局加载动画 */
-/* 全局加载动画已移至 JavaScript 控制 (scroll-reveal) */
-
-.grid-cell:nth-child(8) {
-    animation-delay: 0.4s;
+    --text-muted: #666666;
+    --border-color: #222222;
+    --font-main: 'Space Grotesk', sans-serif;
 }
 
 * {
@@ -62,491 +14,339 @@
 }
 
 body {
-    font-family: var(--main-font);
-    color: var(--text-color);
     background-color: var(--bg-color);
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.4;
-    letter-spacing: -0.05em;
-    /* 缩小全局字间距 */
-    /* 背景网格 */
-    background-image:
-        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
-    background-size: var(--cell-size) var(--cell-size);
-    background-position: -1px -1px;
-}
-
-body.no-scroll {
-    overflow: hidden !important;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* 
-   [修改] 通用交互类：下划线 + 字重变粗动画
-*/
-.hover-link {
-    cursor: pointer;
-    font-weight: var(--font-weight-light);
-    transition: all 0.3s ease;
-
-    /* 下划线样式调整 */
-    text-decoration: underline;
-    text-decoration-thickness: 3px;
-    /* 加粗 */
-    text-underline-offset: 0.15em;
-    /* 靠近文字 */
-    text-decoration-color: #000;
-}
-
-.hover-link:hover {
-    color: var(--brand-color);
-    font-weight: 600;
-    /* 保留一个特殊的 hover 加粗 */
-    text-decoration-color: var(--brand-color);
-}
-
-/* =========================================
-   4. Header 区域
-   ========================================= */
-.site-header {
-    position: relative;
+    color: var(--text-color);
+    font-family: var(--font-main);
+    overflow: hidden;
     width: 100vw;
-    height: var(--cell-size);
-    background-color: transparent;
+    height: 100vh;
+    /* Disable text selection globally during drag */
+    user-select: none;
+    -webkit-user-select: none;
 }
 
-.nav-row-border {
-    position: relative;
-}
-
-.nav-row-border::after {
-    content: '';
-    position: absolute;
-    bottom: -1.5px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background-color: var(--brand-color);
-}
-
-.nav-text {
-    position: absolute;
-    top: 1vw;
-    font-size: var(--text-display);
-    line-height: 1.0;
-    letter-spacing: -0.02em;
-    z-index: 20;
-    font-weight: var(--font-weight-regular);
-    /* Default nav font weight */
-}
-
-.pos-1 {
-    left: 0%;
-    padding-left: 1vw;
-}
-
-.pos-2 {
-    left: 25%;
-    padding-left: 1vw;
-}
-
-.pos-3 {
-    left: 50%;
-    padding-left: 1vw;
-}
-
-.pos-4 {
-    left: 75%;
-    padding-left: 1vw;
-}
-
-#global-desc {
-    position: absolute;
-    top: 6.5vw;
-    left: 1vw;
-    width: 90vw;
-    font-family: var(--main-font);
-    font-size: var(--text-subtitle);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.2;
-    color: var(--desc-gray);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 5;
-}
-
-.logo-svg {
-    position: absolute;
-    bottom: 1vw;
-    left: 1vw;
-    /* 55%就可以了，我测试的 */
-    height: 55%;
-    width: auto;
-    display: block;
-    z-index: 1;
-}
-
-.logo-svg img {
-    height: 100%;
-    width: auto;
-}
-
-/* =========================================
-   5. Main 区域
-   ========================================= */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(var(--grid-cols), 1fr);
-    grid-auto-rows: var(--cell-size);
-    width: 100vw;
-    position: relative;
-    /* 确保在 canvas 之上 */
-    z-index: 10;
-}
-
-/* 详情页专用网格配置：前两行固定(封面)，第三行自适应(正文) */
-.detail-grid {
-    grid-template-rows: var(--cell-size) var(--cell-size) auto;
-    grid-auto-rows: auto;
-}
-
-.grid-cell {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: relative;
-    padding: 1vw;
-}
-
-.p-0 {
-    padding: 0 !important;
-}
-
-.big-square {
-    grid-column: span 2;
-    grid-row: span 1;
-}
-
-/* 作品页封面专用 */
-.cover-square {
-    grid-column: span 4;
-    grid-row: span 2;
-}
-
-/* Helper Classes for Detail Grid */
-.col-start-2 {
-    grid-column-start: 2;
-}
-
-.col-span-3 {
-    grid-column: span 3;
-}
-
-.col-full {
-    grid-column: 1 / -1;
-}
-
-.row-start-2 {
-    grid-row-start: 2;
-}
-
-.project-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    cursor: default;
-}
-
-.project-img {
-    width: auto;
-    height: auto;
-    max-width: 75%;
-    max-height: 75%;
-    object-fit: contain;
-    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
-    transform: translateY(0);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: pointer;
-}
-
-.project-img:hover {
-    transform: translateY(-6px);
-    filter: drop-shadow(0 6px 2px rgba(0, 0, 0, 0.25));
-}
-
-.footer-text {
-    position: absolute;
-    bottom: 1vw;
-    right: 1vw;
-    text-align: right;
-    font-size: var(--text-footer);
-    color: #999;
-    font-weight: var(--font-weight-regular);
-}
-
-/* =========================================
-   6. 作品详情抽屉
-   ========================================= */
-#project-drawer {
+/* UI Overlay Layer */
+#ui-layer {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--bg-color);
-    background-image:
-        linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
-    background-size: var(--cell-size) var(--cell-size);
-    background-attachment: local;
-    z-index: 100;
-    transform: translateY(100%);
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    overflow-y: auto;
-    padding-bottom: 5vw;
-}
-
-#project-drawer.active {
-    transform: translateY(0%);
-}
-
-/* #close-drawer styles removed as it now uses .nav-text classes */
-
-#drawer-content {
     width: 100%;
-    max-width: 100%;
-    padding-top: 0;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
 }
 
-/* 详情页组件 */
-.meta-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-bottom: 1px solid #eee;
-    margin-bottom: 4vw;
+.ui-element {
+    position: absolute;
+    pointer-events: auto;
 }
 
-.meta-item {
-    padding: 2vw;
-    border-right: 1px solid #eee;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5vw;
+.top-left {
+    top: 2rem;
+    left: 2rem;
 }
 
-.meta-label {
-    font-family: var(--main-font);
-    font-size: var(--text-meta-label);
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: var(--font-weight-regular);
+.bottom-left {
+    bottom: 2rem;
+    left: 2rem;
 }
 
-.meta-value {
-    font-family: var(--main-font);
-    font-size: var(--text-meta-value);
-    color: var(--desc-gray);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.3;
+.bottom-right {
+    bottom: 2rem;
+    right: 2rem;
 }
 
-.detail-text {
-    width: 100%;
-    margin: 0 0 5vw 0;
-    /* 只保留底部间距 */
-    font-family: var(--main-font);
-    font-size: var(--text-body);
-    line-height: 1.5;
-    color: #333;
-    font-weight: var(--font-weight-medium);
-}
-
-.detail-img {
-    display: block;
-    width: 100%;
+/* 1. Logo Larger ~400px */
+.logo {
+    width: 400px;
     height: auto;
-    margin-bottom: 1vw;
+    display: block;
 }
 
-/* 细节图片区域（全宽，不受网格限制） */
-.detail-images {
+.jump-link {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.jump-link:hover,
+.jump-link:active {
+    opacity: 1;
+    color: var(--brand-color);
+    text-shadow: 0 0 10px rgba(51, 139, 255, 0.5);
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: #444;
+}
+
+/* 3D Scene Container */
+#scene-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    z-index: 10;
+}
+
+#sphere {
+    position: relative;
+}
+
+/* Card Styles */
+.card-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 240px;
+    /* Slightly larger cards */
+    height: 240px;
+    margin-left: -120px;
+    margin-top: -120px;
+    cursor: grab;
+    /* Grab cursor default */
+    transition: filter 0.3s ease;
+}
+
+.card-container:active {
+    cursor: grabbing;
+}
+
+.card-content {
     width: 100%;
-    padding: 0;
+    height: 100%;
+    background-color: #111;
+    /* 2. Square Cards with minor radius instead of 50% */
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    position: relative;
+    border: 2px solid #222;
 }
 
-/* 通用滚动渐显动画 - 暂时禁用，默认显示 */
-.scroll-reveal {
-    opacity: 1;
-    transform: none;
+.card-container:hover .card-content {
+    border-color: var(--brand-color);
+    box-shadow: 0 0 40px rgba(51, 139, 255, 0.4);
 }
 
-.scroll-reveal.visible {
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.card-container:hover .card-img {
+    opacity: 0.8;
+}
+
+.card-title {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.card-container:hover .card-title {
     opacity: 1;
+}
+
+/* ===== Unified Button Style ===== */
+.glow-box {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
+    background: transparent;
+}
+
+.glow-box:hover {
+    border-color: var(--brand-color);
+    box-shadow: 0 0 30px rgba(51, 139, 255, 0.4);
+    color: var(--brand-color);
+}
+
+/* ===== Drawer Panel ===== */
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.drawer-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.drawer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    background: var(--bg-color);
+    border-top: 2px solid var(--border-color);
+    border-radius: 24px 24px 0 0;
+    z-index: 10001;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    padding: 2rem;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.drawer::-webkit-scrollbar {
+    display: none;
+}
+
+.drawer.active {
     transform: translateY(0);
 }
 
-.detail-images img {
-    display: block;
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.drawer-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--brand-color);
+}
+
+.drawer-close {
+    font-size: 2rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+}
+
+.drawer-close:hover {
+    color: var(--text-color);
+}
+
+.drawer-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+}
+
+.drawer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.drawer-meta-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.drawer-meta-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.drawer-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+.drawer-image {
     width: 100%;
-    height: auto;
+    border-radius: 12px;
+    margin-top: 2rem;
+    border: 1px solid var(--border-color);
 }
 
-/* 逐行渐显动画 */
-.line-reveal {
-    display: block;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: lineReveal 0.5s ease-out forwards;
+.drawer-link {
+    margin-top: 2rem;
 }
 
-@keyframes lineReveal {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* =========================================
-   7. 移动端适配
-   ========================================= */
-@media screen and (max-width: 768px) {
-    :root {
-        --grid-cols: 2;
-        --cell-size: 50vw;
-
-        /* 移动端字体大小重定义 (固定值) */
-        --text-display: 36px;
-        --text-title: 32px;
-        --text-subtitle: 24px;
-        --text-body: 18px;
-        --text-meta-label: 12px;
-        --text-meta-value: 14px;
-        --text-footer: 14px;
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+    .top-left {
+        top: 1rem;
+        left: 1rem;
     }
 
-    /* Header */
-    .site-header {
-        height: 50vw;
+    .bottom-left {
+        bottom: 1rem;
+        left: 1rem;
     }
 
-    .nav-text {
-        font-size: var(--text-display);
+    .bottom-right {
+        bottom: 1rem;
+        right: 1rem;
     }
 
-    .pos-1 {
-        left: 0%;
+    .logo {
+        width: 300px;
     }
 
-    .pos-2 {
-        left: 50%;
+    .jump-link {
+        font-size: 1rem;
     }
 
-    .pos-3 {
-        left: 0%;
-        top: 8vw;
+    .glow-box {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
     }
 
-    .pos-4 {
-        left: 50%;
-        top: 8vw;
+    .drawer {
+        height: 90vh;
+        padding: 1.5rem;
     }
 
-    #global-desc {
-        display: none;
+    .drawer-content {
+        grid-template-columns: 1fr;
     }
 
-    .logo-svg {
-        height: 60%;
-        bottom: 2vw;
-    }
-
-    /* Grid */
-    .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .big-square {
-        grid-column: span 2;
-        grid-row: span 1;
-    }
-
-    /* 详情页辅助类调整 */
-    .col-span-3 {
-        grid-column: span 2;
-    }
-
-    .col-start-2 {
-        grid-column-start: 1;
-    }
-
-    /* Typography */
-    .detail-text {
-        font-size: var(--text-body);
-        width: 100%;
-        padding: 0;
-        /*  Removed 4vw padding per user request */
-        margin: 0;
-        /* Ensure no extra margin */
-    }
-
-    .meta-label {
-        font-size: var(--text-meta-label);
-    }
-
-    .meta-value {
-        font-size: var(--text-meta-value);
-    }
-
-    /* Cover Square on Mobile: Span 1 Row (Full Width) */
-    .cover-square {
-        grid-column: 1 / -1 !important;
-        grid-row: span 1 !important;
-    }
-
-    /* 详情页移动端布局 - 内容上移一行 */
-    .project-title-cell {
-        grid-column: 1 !important;
-        grid-row: 2 !important;
-    }
-
-    .project-title {
-        font-size: var(--text-title) !important;
-        line-height: 1.1 !important;
-    }
-
-    .project-meta-desktop {
-        display: none !important;
-    }
-
-    .project-meta-mobile {
-        display: block !important;
-        grid-column: 2 !important;
-        grid-row: 2 !important;
-    }
-
-    /* 正文移动端 */
-    .col-start-2.col-span-3[style*="grid-row: 3"] {
-        grid-row: 3 !important;
-        grid-column: 1 / -1 !important;
-        padding: 1vw !important;
-        /* 确保与网格间距一致 */
-    }
-
-    .footer-text {
-        font-size: var(--text-footer);
+    .drawer-title {
+        font-size: 1.5rem;
     }
 }

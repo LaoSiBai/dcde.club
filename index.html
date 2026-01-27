@@ -4,41 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DCDE</title>
+    <title>DCDE - Design Lab</title>
     <link rel="icon" type="image/svg+xml" href="logo-1.svg">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@700&family=Space+Grotesk:wght@300..700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Header 区域 -->
-    <header class="site-header nav-row-border">
+    <!-- UI Overlay Layer (2D) -->
+    <div id="ui-layer">
+        <!-- Logo Top Left -->
+        <div class="ui-element top-left">
+            <picture>
+                <source srcset="logo-3.svg" media="(max-width: 768px)">
+                <img src="logo-2.svg" alt="DCDE Logo" class="logo">
+            </picture>
+        </div>
 
-        <!-- 导航链接：加上了 hover-link 类 -->
-        <a href="#studio" class="nav-text pos-1 hover-link" data-desc="思考的实体映射。这里存放所有的设计归档与实验记录。">Studio</a>
-        <a href="info/index.html" class="nav-text pos-2 hover-link"
-            data-desc="在秩序中寻找变量。DCDE 致力于构建中学生设计美学的实验基地。">Info</a>
-        <a href="#collab" class="nav-text pos-3 hover-link" data-desc="共鸣的发生地。寻找合作伙伴，发起未知的创造。">Collab</a>
-        <a href="#hub" class="nav-text pos-4 hover-link" data-desc="链接年轻的孤岛。进入社区，分享你的锐利观点。">Hub</a>
+        <!-- Jump Link Bottom Left -->
+        <div class="ui-element bottom-left">
+            <a href="info/index.html" class="jump-link">ENTER STUDIO →</a>
+        </div>
 
-        <div id="global-desc"></div>
-        <picture class="logo-svg">
-            <source srcset="logo-3.svg" media="(max-width: 768px)">
-            <img src="logo-2.svg" alt="DCDE Logo">
-        </picture>
-    </header>
+        <!-- Footer Bottom Right -->
+        <div class="ui-element bottom-right">
+            <p class="copyright">© 2026 DCDE. All Rights Reserved.</p>
+        </div>
+    </div>
 
-    <!-- Main 区域 -->
-    <main class="grid-container">
-        <!-- JS 自动填充 -->
-    </main>
+    <!-- 3D Scene Container -->
+    <div id="scene-container">
+        <div id="sphere">
+            <!-- Cards will be injected here by JS -->
+        </div>
+    </div>
 
-    <!-- 脚本 -->
+    <!-- Drawer Overlay -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
+    <!-- Drawer Panel -->
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <h2 class="drawer-title" id="drawer-title">Project Title</h2>
+            <button class="drawer-close" id="drawer-close">×</button>
+        </div>
+        <div class="drawer-content">
+            <div class="drawer-meta">
+                <div>
+                    <div class="drawer-meta-label">项目</div>
+                    <div class="drawer-meta-value" id="drawer-project">—</div>
+                </div>
+                <div>
+                    <div class="drawer-meta-label">链接</div>
+                    <a href="#" class="glow-box drawer-link" id="drawer-link">查看详情 →</a>
+                </div>
+            </div>
+            <div>
+                <p class="drawer-description" id="drawer-desc">项目描述将显示在这里。</p>
+                <img src="" alt="Project Image" class="drawer-image" id="drawer-image">
+            </div>
+        </div>
+    </div>
+
     <script src="data.js"></script>
     <script src="main.js"></script>
 </body>

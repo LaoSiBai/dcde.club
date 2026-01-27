@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
 :root {
     --bg-color: #000000;
     --text-color: #ffffff;
     --brand-color: #338BFF;
     --text-muted: #666666;
     --border-color: #222222;
-    --font-main: 'Space Grotesk', sans-serif;
+    --font-main: 'Space Grotesk', 'Noto Sans SC', sans-serif;
 }
 
 * {

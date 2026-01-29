@@ -21,9 +21,9 @@
         }
 
         .sg-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
+            padding-top: 12rem;
+            /* Ensure space for fixed logo */
+            padding-bottom: 4rem;
         }
 
         .sg-header {
@@ -128,26 +128,62 @@
             font-weight: 500;
             color: var(--text-muted);
         }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sg-container {
+                padding-top: 12rem;
+            }
+
+            .sg-title {
+                font-size: var(--text-2xl);
+            }
+
+            .sg-section-title {
+                font-size: var(--text-lg);
+            }
+
+            .type-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .type-label {
+                width: auto;
+            }
+
+            .demo-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .demo-label {
+                width: auto;
+            }
+
+            .color-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <nav style="padding: 2rem; display: flex; justify-content: space-between; align-items: center;">
-        <img src="../logo-3.svg" style="width: 200px; opacity: 0.8;" alt="Logo">
+    <div id="global-header"></div>
+    <script src="../components/header.js"></script>
 
-    </nav>
+    <div class="sg-container layout-grid subpage-container">
 
-    <div class="sg-container">
-
-        <header class="sg-header">
+        <header class="sg-header col-span-4">
             <h1 class="sg-title">Design System</h1>
             <p style="color: var(--text-muted);">DCDE 品牌视觉设计规范定义 · v2.0</p>
         </header>
 
         <!-- 1. Typography -->
         <!-- 1. Typography -->
-        <section class="sg-section">
+        <section class="sg-section col-span-4">
             <h2 class="sg-section-title">Typography / 排版</h2>
             <div class="type-row">
                 <span class="type-label">XL</span>
@@ -168,8 +204,25 @@
             </div>
         </section>
 
+        <!-- 2. Spacing -->
+        <section class="sg-section col-span-4">
+            <h2 class="sg-section-title">Spacing / 间距规范</h2>
+            <div class="type-row">
+                <span class="type-label">Top Padding</span>
+                <span class="type-preview">8rem (Desktop) / 6rem (Mobile)</span>
+            </div>
+            <div class="type-row">
+                <span class="type-label">Bottom Padding</span>
+                <span class="type-preview">4rem</span>
+            </div>
+            <div class="type-row">
+                <span class="type-label">Grid Margin</span>
+                <span class="type-preview">2rem</span>
+            </div>
+        </section>
+
         <!-- 2. Colors -->
-        <section class="sg-section">
+        <section class="sg-section col-span-4">
             <h2 class="sg-section-title">Color Palette / 色彩</h2>
             <div class="color-grid">
                 <!-- Brand Blue -->
@@ -216,7 +269,7 @@
         </section>
 
         <!-- 3. Components -->
-        <section class="sg-section">
+        <section class="sg-section col-span-4">
             <h2 class="sg-section-title">Components / 组件</h2>
             <div class="component-demos">
 

@@ -22,41 +22,15 @@
             height: auto;
         }
 
-        .page-header {
-            padding: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
 
-        .page-logo {
-            width: 400px;
-            height: auto;
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .page-header {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-                padding: 1rem;
-            }
-
-            .page-logo {
-                width: 300px;
-                max-width: 300px;
-            }
-        }
 
         .page-content {
-            padding: 0 2rem 4rem 2rem;
             max-width: 1000px;
             margin: 0 auto;
         }
 
         .hero {
-            text-align: center;
+            text-align: left;
             margin-bottom: 4rem;
         }
 
@@ -77,12 +51,7 @@
             margin-bottom: 4rem;
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 4rem;
-        }
+
 
         .info-block {
             padding: 2rem;
@@ -104,8 +73,8 @@
         }
 
         .page-footer {
-            text-align: center;
-            padding: 2rem;
+            text-align: left;
+            padding: 2rem 0;
             border-top: 1px solid var(--border-color);
         }
 
@@ -123,54 +92,61 @@
                 font-size: 2rem;
             }
 
+            .main-text {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            /* Stack info blocks vertically */
             .info-grid {
-                grid-template-columns: 1fr;
+                display: flex !important;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .info-block {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <header class="page-header">
-        <picture>
-            <source srcset="../logo-3.svg" media="(max-width: 768px)">
-            <img src="../logo-2.svg" alt="DCDE Logo" class="page-logo">
-        </picture>
+    <div id="global-header"></div>
+    <script src="../components/header.js"></script>
 
-    </header>
-
-    <div class="page-content">
-        <div class="hero">
+    <div class="page-content subpage-container layout-grid">
+        <div class="hero col-span-4">
             <h1 class="hero-title">关于 DCDE</h1>
             <p class="hero-subtitle">在秩序中寻找变量</p>
         </div>
 
-        <p class="main-text">
+        <p class="main-text col-span-4">
             我们不仅仅是一个校园社团，更是一个植根于东辰、视野向外延伸的青年设计实验场。DCDE 致力于消除「学生作品」与「专业设计」之间的刻板界限，将每一次创作视为对现有秩序的挑战，或对混乱现实的重构。
             <br><br>
             这就好像我们在构建一个虚拟的物理空间，这里存放着我们的思考、焦虑、试错与最终的输出。这是一场关于成长的漫长实验。
         </p>
 
-        <div class="info-grid">
-            <div class="info-block">
+        <div class="info-grid col-span-4 layout-grid" style="padding: 0; margin-bottom: 4rem;">
+            <div class="info-block col-span-1">
                 <h2 class="info-block-title">Studio</h2>
                 <p class="info-block-text">思考的实体映射。这里存放所有的设计归档与实验记录。</p>
             </div>
-            <div class="info-block">
+            <div class="info-block col-span-1">
                 <h2 class="info-block-title">Collab</h2>
                 <p class="info-block-text">共鸣的发生地。寻找合作伙伴，发起未知的创造。</p>
             </div>
-            <div class="info-block">
+            <div class="info-block col-span-1">
                 <h2 class="info-block-title">Hub</h2>
                 <p class="info-block-text">链接年轻的孤岛。进入社区，分享你的锐利观点。</p>
             </div>
-            <div class="info-block">
+            <div class="info-block col-span-1">
                 <h2 class="info-block-title">Design System</h2>
                 <p class="info-block-text">视觉规范与交互指南。确保品牌一致性。</p>
             </div>
         </div>
 
-        <footer class="page-footer">
+        <footer class="page-footer col-span-4">
             <span class="footer-text">© 2026 DCDE · Dongchen Design Experiment</span>
         </footer>
     </div>

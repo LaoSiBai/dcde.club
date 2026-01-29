@@ -8,26 +8,50 @@
     <link rel="icon" type="image/svg+xml" href="../logo-1.svg">
     <!-- Fonts are loaded via @import in style.css -->
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .cover-square {
+                margin-bottom: 2rem !important;
+            }
+
+            .project-description {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .meta-label {
+                font-size: 0.7rem;
+            }
+
+            .meta-value {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <main class="grid-container detail-grid">
+    <div id="global-header"></div>
+    <script src="../components/header.js"></script>
 
-        <!-- Row 1-2: 封面图 (跨两行) + 底部分割线 -->
-        <div class="grid-cell col-full p-0 cover-square" style="border-bottom: 3px solid var(--brand-color);">
-            <img src="icon.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Cover Image">
+    <div class="page-content layout-grid subpage-container">
+
+        <!-- Row 2: 封面图 (跨全屏) -->
+        <div class="col-span-4 p-0 cover-square" style="margin-bottom: 4rem;">
+            <img src="icon.png"
+                style="width: 100%; height: auto; border-radius: 16px; border: 2px solid var(--border-color);"
+                alt="Cover Image">
         </div>
 
-        <!-- Row 3: 项目名称 (Col 1) -->
-        <div class="grid-cell project-title-cell" style="grid-column: 1; grid-row: 3;">
+        <div class="col-span-1" style="grid-row: 1;">
             <!-- 项目名称 -->
             <p class="detail-text project-title"
-                style="margin: 0; font-weight: var(--font-weight-bold); color: var(--brand-color); font-size: var(--text-title); line-height: 1.2;">
+                style="margin: 0; font-weight: 700; color: var(--brand-color); font-size: var(--text-lg); line-height: 1.2;">
                 DCDE Branding<br>品牌识别系统</p>
 
-            <!-- 元数据 (桌面端显示在项目名称下方) -->
-            <div class="project-meta-desktop"
-                style="display: flex; flex-direction: column; gap: 0.8vw; margin-top: 2vw;">
+            <!-- 元数据 -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
                 <div>
                     <span class="meta-label">合作方</span>
                     <div class="meta-value">Self-Initiated</div>
@@ -43,28 +67,12 @@
             </div>
         </div>
 
-        <!-- 元数据 (移动端显示在右栏) -->
-        <div class="grid-cell project-meta-mobile" style="grid-column: 2; grid-row: 3; display: none;">
-            <div style="display: flex; flex-direction: column; gap: 0.8vw;">
-                <div>
-                    <span class="meta-label">合作方</span>
-                    <div class="meta-value">Self-Initiated</div>
-                </div>
-                <div>
-                    <span class="meta-label">设计师</span>
-                    <div class="meta-value">DCDE Team</div>
-                </div>
-                <div>
-                    <span class="meta-label">时间</span>
-                    <div class="meta-value">2024 - Present</div>
-                </div>
-            </div>
-        </div>
+        <!-- Removed redundant mobile meta -->
 
-        <!-- Row 3: 正文 (Cols 2-4) -->
-        <div class="grid-cell col-start-2 col-span-3" style="grid-row: 3;">
+        <!-- Row 1: 正文 (Cols 2-4) -->
+        <div class="col-span-3" style="grid-row: 1;">
             <div class="detail-text" style="margin: 0;">
-                <p>
+                <p class="project-description">
                     DCDE (Design Crew for Design Enthusiasts) 是一个致力于探索中学生设计美学的实验性组织。
                     <br><br>
                     在这个项目中，我们试图建立一种全新的视觉语言，将严谨的网格系统与流动的创意表达相结合。
@@ -75,13 +83,13 @@
             </div>
         </div>
 
-    </main>
-
-    <!-- 细节图片：全宽显示，不受网格限制 -->
-    <section class="detail-images">
-        <img src="icon.png" alt="Detail 1">
-        <img src="../project-01/cover.png" alt="Detail 2">
-    </section>
+        <div class="gallery col-span-4" style="margin-top: 4rem;">
+            <img src="icon.png" alt="Detail 1"
+                style="width: 100%; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+            <img src="../biliboard/cover.png" alt="Detail 2"
+                style="width: 100%; border-radius: 12px; border: 1px solid var(--border-color);">
+        </div>
+    </div>
 
 </body>
 

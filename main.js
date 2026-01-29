@@ -20,12 +20,6 @@ const MAX_SCALE = 1.3;
 const DRAG_SENSITIVITY = 0.005;
 const INERTIA_DECAY = 0.95;
 
-// Elastic Config
-const GRAB_RADIUS_MULT = 1.3;
-const GRAB_ITEM_MULT = 0.9;
-const NORMAL_MULT = 1.0;
-const SCALE_ELASTICITY = 0.1;
-
 // Spring/Damping Config
 const MAX_CROSS_ANGLE = Math.PI / 3;
 const SPRING_STRENGTH = 0.05;
@@ -41,11 +35,7 @@ let currentRotX = 0;
 let velocityX = 0;
 let velocityY = 0;
 
-// State: Elastic Variables
-let currentRadiusMult = 1.0;
-let targetRadiusMult = 1.0;
-let currentItemMult = 1.0;
-let targetItemMult = 1.0;
+
 
 // State: Dragging
 let isDragging = false;
@@ -82,7 +72,9 @@ function init() {
 
     // Add escape key listener
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isFocusMode) exitFocusMode();
+        if (e.key === 'Escape') {
+            if (isFocusMode) exitFocusMode();
+        }
     });
 
     animate();
@@ -203,12 +195,14 @@ function enterFocusMode(data, originalCard) {
     // Force layout reflow
     void focusedCardClone.offsetWidth;
 
-    // Calculate target position (center of placeholder)
+    // Calculate target position (center of the grid-aligned placeholder)
     const targetRect = focusCardPlaceholder.getBoundingClientRect();
 
     // Animate to target
-    // We want the card to be larger in focus mode
-    const scaleFactor = isMobileLayout ? 1.5 : 2.0;
+    // DYNAMIC SCALE: Scale the card to fit the placeholder perfectly
+    const widthScale = (targetRect.width / rect.width) * 0.9;
+    const heightScale = (targetRect.height / rect.height) * 0.9;
+    const scaleFactor = Math.min(widthScale, heightScale);
 
     // Center it based on placeholder
     const targetX = targetRect.left + targetRect.width / 2 - rect.width / 2;
@@ -277,17 +271,7 @@ function onMouseDown(e) {
     velocityX = 0;
     velocityY = 0;
 
-    // Only trigger "grab" elasticity if NOT clicking a card
-    // This prevents the "shake" effect when just wanting to tap a card
-    if (e.target.closest('.card-container')) {
-        targetRadiusMult = NORMAL_MULT;
-        targetItemMult = NORMAL_MULT;
-    } else {
-        targetRadiusMult = GRAB_RADIUS_MULT;
-        targetItemMult = GRAB_ITEM_MULT;
-    }
-
-    document.body.style.cursor = 'grabbing';
+    document.body.style.cursor = 'default';
 }
 
 function onMouseMove(e) {
@@ -334,8 +318,6 @@ function onMouseMove(e) {
 function onMouseUp() {
     isDragging = false;
     document.body.style.cursor = 'default';
-    targetRadiusMult = NORMAL_MULT;
-    targetItemMult = NORMAL_MULT;
 }
 
 function onTouchStart(e) {
@@ -350,9 +332,6 @@ function onTouchMove(e) {
 }
 
 function animate() {
-    currentRadiusMult += (targetRadiusMult - currentRadiusMult) * SCALE_ELASTICITY;
-    currentItemMult += (targetItemMult - currentItemMult) * SCALE_ELASTICITY;
-
     // Stop rotation if in focus mode or dragging
     if (!isDragging && !isFocusMode) {
         currentRotY += velocityY;
@@ -401,11 +380,7 @@ function animate() {
         let finalY = y2;
         let finalZ = z2;
 
-        finalX *= currentRadiusMult;
-        finalY *= currentRadiusMult;
-
         let scale = mapRange(finalZ, -RADIUS, RADIUS, BASE_SCALE, MAX_SCALE);
-        scale *= currentItemMult;
 
         let opacity = mapRange(finalZ, -RADIUS, RADIUS * 0.5, 0.1, 1.0);
 

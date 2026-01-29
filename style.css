@@ -8,10 +8,21 @@
     --border-color: #222222;
     --font-main: 'Space Grotesk', 'Noto Sans SC', sans-serif;
 
+    /* Layout Grid */
+    --grid-margin: 2rem;
+    --grid-gutter: 2rem;
+    --grid-cols: 4;
+    --container-max-width: 1600px;
+
     /* Spacing Refinement */
     --compact-lh: 1.25;
     --tight-spacing: -0.03em;
     --base-spacing: -0.01em;
+
+    /* Sub-page Spacing Spec */
+    --subpage-pt: 8rem;
+    --subpage-pb: 4rem;
+    --subpage-pt-mobile: 12rem;
 
     /* Typography Scale (Consolidated to 4 levels) */
     --text-sm: 0.8rem;
@@ -27,6 +38,37 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+    }
+
+    .layout-grid {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-cols), 1fr);
+        gap: var(--grid-gutter);
+        margin: 0 auto;
+        padding-left: var(--grid-margin);
+        padding-right: var(--grid-margin);
+        max-width: var(--container-max-width);
+        width: 100%;
+    }
+
+    .col-span-1 {
+        grid-column: span 1;
+    }
+
+    .col-span-2 {
+        grid-column: span 2;
+    }
+
+    .col-span-3 {
+        grid-column: span 3;
+    }
+
+    .col-span-4 {
+        grid-column: span 4;
+    }
+
+    .start-col-3 {
+        grid-column-start: 3;
     }
 
     body {
@@ -62,26 +104,56 @@
         pointer-events: auto;
     }
 
-    .top-left {
-        top: 2rem;
-        left: 2rem;
+    /* Unified Global Header */
+    .main-header {
+        position: absolute;
+        /* Follow document flow */
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding-top: var(--grid-margin);
+        z-index: 9000;
+        pointer-events: none;
+        background: transparent;
     }
 
-    .bottom-left {
-        bottom: 2rem;
-        left: 2rem;
+    .main-logo-link {
+        pointer-events: auto;
+        display: block;
+        width: fit-content;
     }
 
-    .bottom-right {
-        bottom: 2rem;
-        right: 2rem;
-    }
-
-    /* 1. Logo Larger ~400px */
-    .logo {
+    .main-logo {
         width: 400px;
         height: auto;
         display: block;
+    }
+
+    /* Remove hover opacity feedback as requested */
+    .main-logo:hover {
+        opacity: 1;
+    }
+
+    .bottom-left {
+        bottom: var(--grid-margin);
+        left: var(--grid-margin);
+    }
+
+    .bottom-right {
+        bottom: var(--grid-margin);
+        right: var(--grid-margin);
+    }
+
+    /* Sub-page Content Spacing Utility */
+    .subpage-container {
+        padding-top: var(--subpage-pt);
+        padding-bottom: var(--subpage-pb);
+    }
+
+    @media (max-width: 768px) {
+        .subpage-container {
+            padding-top: var(--subpage-pt-mobile);
+        }
     }
 
     .jump-link {
@@ -110,11 +182,15 @@
     #scene-container {
         position: fixed;
         top: 50%;
-        left: 50%;
+        left: 65%;
+        /* Shifted right for desktop */
         width: 0;
         height: 0;
-        z-index: 10;
+        z-index: 1;
     }
+
+    /* Base placeholder - inherits grid positioning from #focus-info-container */
+    /* This selector is overridden below for proper grid alignment */
 
     #sphere {
         position: relative;
@@ -130,13 +206,13 @@
         height: 240px;
         margin-left: -120px;
         margin-top: -120px;
-        cursor: grab;
-        /* Grab cursor default */
+        cursor: pointer;
+        /* Changed from grab to pointer as requested */
         transition: filter 0.3s ease;
     }
 
     .card-container:active {
-        cursor: grabbing;
+        cursor: pointer;
     }
 
     .card-content {
@@ -173,11 +249,10 @@
 
     .card-title {
         position: absolute;
-        width: 100%;
-        text-align: center;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        width: calc(100% - 2rem);
+        text-align: left;
+        bottom: 1.5rem;
+        left: 1.5rem;
         font-size: var(--text-lg);
         /* 1.4rem -> 1.5rem (unified) */
         font-weight: 700;
@@ -241,37 +316,52 @@
 
     /* Container for the Zoomed 3D Card */
     #focus-card-placeholder {
-        position: fixed;
-        top: 50%;
-        left: 40%;
-        /* Desktop: Slightly left to share space with text */
-        transform: translate(-50%, -50%);
-        width: 0;
-        height: 0;
+        grid-column: 1 / span 2;
+        /* Occupy left half on desktop */
+        height: 60vh;
+        /* Responsive height limit */
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         z-index: 9991;
-        perspective: 1000px;
+        pointer-events: none;
     }
 
     /* Floating Info Container */
     #focus-info-container {
         position: fixed;
-        top: 50%;
-        left: 65%;
-        /* Desktop: Right side */
-        transform: translate(-20px, -50%);
-        /* Start slightly offset */
-        width: 400px;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(var(--grid-cols), 1fr);
+        gap: var(--grid-gutter);
+        padding: 0 var(--grid-margin);
+        align-items: center;
         opacity: 0;
         pointer-events: none;
         z-index: 9992;
         transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-        /* Sync with card animation, no delay */
+    }
+
+    .focus-info-inner {
+        grid-column: 3 / span 2;
+        /* Occupy column 3 and 4 */
+        opacity: 0;
+        transform: translate(20px, 0);
+        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     #focus-info-container.active {
         opacity: 1;
-        transform: translate(0, -50%);
         pointer-events: auto;
+    }
+
+    #focus-info-container.active .focus-info-inner {
+        opacity: 1;
+        transform: translate(0, 0);
     }
 
     .focus-content {
@@ -340,10 +430,40 @@
     }
 
     /* ===== Mobile Responsive ===== */
+    @media (max-width: 1024px) {
+        :root {
+            --grid-cols: 2;
+        }
+    }
+
     @media (max-width: 768px) {
-        .top-left {
-            top: 1rem;
-            left: 1rem;
+        :root {
+            --grid-cols: 1;
+            --grid-margin: 1.5rem;
+            --grid-gutter: 2rem;
+        }
+
+        /* Force all col-span classes to full width on mobile */
+        .col-span-1,
+        .col-span-2,
+        .col-span-3,
+        .col-span-4 {
+            grid-column: 1 / -1;
+        }
+
+        /* Reset explicit grid-row to allow natural flow */
+        [style*="grid-row"] {
+            grid-row: auto !important;
+        }
+
+        #scene-container {
+            top: 50%;
+            /* Reverted to center */
+            left: 50%;
+        }
+
+        .main-logo {
+            width: 280px;
         }
 
         .bottom-left {
@@ -369,34 +489,39 @@
             font-size: var(--text-sm);
         }
 
-        /* Mobile Focus Mode */
-        #focus-card-placeholder {
-            top: 42%;
-            /* Card near top */
-            left: 50%;
-            width: 0;
-            height: 0;
-        }
-
+        /* Mobile Focus Mode - Vertical Stack Layout */
         #focus-info-container {
-            top: 70%;
-            /* Info below card */
-            left: 50%;
-            transform: translate(-50%, 20px);
-            width: 90%;
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1.5rem 2rem;
+            gap: 2rem;
         }
 
-        #focus-info-container.active {
-            transform: translate(-50%, 0);
+        #focus-card-placeholder {
+            /* Card area: upper portion */
+            width: 85vw;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .focus-info-inner {
+            /* Text area: lower portion */
+            width: 90%;
+            max-height: 35vh;
+            overflow-y: auto;
         }
 
         .focus-title {
             font-size: var(--text-lg);
         }
 
-        .focus-desc {
-            max-height: 25vh;
+        .focus-description {
+            max-height: 20vh;
         }
 
         #focus-close {

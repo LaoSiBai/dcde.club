@@ -26,19 +26,16 @@
 
     <!-- UI Overlay Layer (2D) -->
     <div id="ui-layer">
-        <!-- Logo Top Left -->
-        <div class="ui-element top-left">
-            <picture>
-                <source srcset="logo-3.svg" media="(max-width: 768px)">
-                <img src="logo-2.svg" alt="DCDE Logo" class="logo">
-            </picture>
-        </div>
+        <!-- Global Unified Header -->
+        <div id="global-header"></div>
+        <script src="components/header.js"></script>
 
 
 
-        <!-- Jump Link Bottom Left -->
-        <div class="ui-element bottom-left">
-            <a href="info/index.html" class="jump-link">ENTER STUDIO →</a>
+        <!-- Jump Links Bottom Left -->
+        <div class="ui-element bottom-left" style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="info/index.html" class="jump-link">Information →</a>
+            <a href="#" class="jump-link">Collaboration →</a>
         </div>
 
         <!-- Footer Bottom Right -->
@@ -57,21 +54,23 @@
     <!-- Focus Overlay (Blur Background) -->
     <div id="focus-overlay"></div>
 
-    <!-- Focused Card Container (Animation Target) -->
-    <div id="focus-card-placeholder"></div>
-
     <!-- Focus Info Container (Floating Text) -->
     <div id="focus-info-container">
-        <div class="focus-content">
-            <h2 class="focus-title" id="focus-title">Project Title</h2>
-            <div class="focus-meta">
-                <div>
-                    <div class="focus-meta-label">项目</div>
-                    <div class="focus-meta-value" id="focus-project">—</div>
+        <!-- Placeholder for the Zoomed Card (aligned to grid cols 1-2) -->
+        <div id="focus-card-placeholder"></div>
+
+        <div class="focus-info-inner">
+            <div class="focus-content">
+                <h2 class="focus-title" id="focus-title">Project Title</h2>
+                <div class="focus-meta">
+                    <div>
+                        <div class="focus-meta-label">项目</div>
+                        <div class="focus-meta-value" id="focus-project">—</div>
+                    </div>
                 </div>
+                <p class="focus-description" id="focus-desc">项目描述。</p>
+                <a href="#" class="jump-link focus-link" id="focus-link">查看详情 →</a>
             </div>
-            <p class="focus-description" id="focus-desc">项目描述。</p>
-            <a href="#" class="jump-link focus-link" id="focus-link">查看详情 →</a>
         </div>
         <button id="focus-close">×</button>
     </div>

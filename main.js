@@ -3,15 +3,15 @@
 const scene = document.getElementById('scene-container');
 const sphere = document.getElementById('sphere');
 
-// Drawer Elements
-const drawerOverlay = document.getElementById('drawer-overlay');
-const drawer = document.getElementById('drawer');
-const drawerClose = document.getElementById('drawer-close');
-const drawerTitle = document.getElementById('drawer-title');
-const drawerProject = document.getElementById('drawer-project');
-const drawerDesc = document.getElementById('drawer-desc');
-const drawerImage = document.getElementById('drawer-image');
-const drawerLink = document.getElementById('drawer-link');
+// Focus Elements
+const focusOverlay = document.getElementById('focus-overlay');
+const focusCardPlaceholder = document.getElementById('focus-card-placeholder');
+const focusInfoContainer = document.getElementById('focus-info-container');
+const focusTitle = document.getElementById('focus-title');
+const focusProject = document.getElementById('focus-project');
+const focusDesc = document.getElementById('focus-desc');
+const focusLink = document.getElementById('focus-link');
+const focusClose = document.getElementById('focus-close');
 
 // Configuration
 let RADIUS = 900;
@@ -51,7 +51,9 @@ let targetItemMult = 1.0;
 let isDragging = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
-let dragDistance = 0; // Track drag distance to distinguish click vs drag
+let dragDistance = 0;
+let isFocusMode = false; // Track if we are in focus mode
+let focusedCardClone = null; // To store the clone for animation
 
 function init() {
     checkMode();
@@ -70,13 +72,18 @@ function init() {
     window.addEventListener('touchmove', onTouchMove, { passive: false });
     window.addEventListener('touchend', onMouseUp);
 
-    // Drawer events
-    if (drawerClose) {
-        drawerClose.addEventListener('click', closeDrawer);
+    // Focus events
+    if (focusClose) {
+        focusClose.addEventListener('click', exitFocusMode);
     }
-    if (drawerOverlay) {
-        drawerOverlay.addEventListener('click', closeDrawer);
+    if (focusOverlay) {
+        focusOverlay.addEventListener('click', exitFocusMode);
     }
+
+    // Add escape key listener
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isFocusMode) exitFocusMode();
+    });
 
     animate();
 }
@@ -130,9 +137,10 @@ function createCards() {
 
         // Click to open drawer (only if not dragging)
         cardContainer.addEventListener('click', (e) => {
-            if (dragDistance < 10) {
+            // Check for click (if not dragged)
+            if (dragDistance < 5) {
                 e.preventDefault();
-                openDrawer(project);
+                enterFocusMode(project, cardContainer);
             }
         });
         img.ondragstart = () => false;
@@ -150,28 +158,98 @@ function createCards() {
     });
 }
 
-// Drawer Functions
-function openDrawer(project) {
-    if (drawerTitle) drawerTitle.textContent = project.title;
-    if (drawerProject) drawerProject.textContent = project.id;
-    if (drawerDesc) drawerDesc.textContent = project.description || '暂无描述';
-    if (drawerImage) {
-        drawerImage.src = project.image;
-        drawerImage.alt = project.title;
-    }
-    if (drawerLink) {
-        drawerLink.href = project.link;
-    }
+/* =========================================
+   Focus Mode Logic (Central Zoom + Blur)
+   ========================================= */
 
-    if (drawerOverlay) drawerOverlay.classList.add('active');
-    if (drawer) drawer.classList.add('active');
-    document.body.style.overflow = 'hidden';
+function enterFocusMode(data, originalCard) {
+    if (isFocusMode) return;
+    isFocusMode = true;
+
+    // 1. Populate Info
+    focusTitle.innerText = data.title;
+    focusProject.innerText = data.type;
+    focusDesc.innerText = data.description || '暂无描述';
+    focusLink.href = data.link;
+
+    // 2. Lock Sphere Interaction
+    document.body.style.cursor = 'default';
+
+    // 3. FLIP Animation Strategy
+    // Get original position
+    const rect = originalCard.getBoundingClientRect();
+
+    // Create clone FIRST (so it doesn't inherit hidden state if we hid original first)
+    focusedCardClone = originalCard.cloneNode(true);
+
+    // Hide original card temporarily
+    originalCard.style.visibility = 'hidden';
+
+    focusedCardClone.style.position = 'fixed';
+    focusedCardClone.style.visibility = 'visible'; // Ensure clone is visible
+    focusedCardClone.style.margin = '0';
+    focusedCardClone.style.top = rect.top + 'px';
+    focusedCardClone.style.left = rect.left + 'px';
+    focusedCardClone.style.width = rect.width + 'px';
+    focusedCardClone.style.height = rect.height + 'px';
+    focusedCardClone.style.transform = 'none';
+    focusedCardClone.style.zIndex = '10000';
+    focusedCardClone.style.transition = 'all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+    // Remove pointer events from clone so we can click underlying elements if needed (though overlay covers)
+    focusedCardClone.style.pointerEvents = 'none';
+
+    document.body.appendChild(focusedCardClone);
+
+    // Force layout reflow
+    void focusedCardClone.offsetWidth;
+
+    // Calculate target position (center of placeholder)
+    const targetRect = focusCardPlaceholder.getBoundingClientRect();
+
+    // Animate to target
+    // We want the card to be larger in focus mode
+    const scaleFactor = isMobileLayout ? 1.5 : 2.0;
+
+    // Center it based on placeholder
+    const targetX = targetRect.left + targetRect.width / 2 - rect.width / 2;
+    const targetY = targetRect.top + targetRect.height / 2 - rect.height / 2;
+
+    focusedCardClone.style.top = targetY + 'px';
+    focusedCardClone.style.left = targetX + 'px';
+    focusedCardClone.style.transform = `scale(${scaleFactor})`;
+
+    // 4. Show Overlay & Info
+    focusOverlay.classList.add('active');
+    focusInfoContainer.classList.add('active');
+
+    // Store reference to original card to restore later
+    focusedCardClone.originalCardRef = originalCard;
 }
 
-function closeDrawer() {
-    if (drawerOverlay) drawerOverlay.classList.remove('active');
-    if (drawer) drawer.classList.remove('active');
-    document.body.style.overflow = '';
+function exitFocusMode() {
+    if (!isFocusMode || !focusedCardClone) return;
+
+    // 1. Hide Overlay & Info
+    focusOverlay.classList.remove('active');
+    focusInfoContainer.classList.remove('active');
+
+    // 2. Reverse Animation
+    const originalCard = focusedCardClone.originalCardRef;
+    const rect = originalCard.getBoundingClientRect();
+
+    focusedCardClone.style.top = rect.top + 'px';
+    focusedCardClone.style.left = rect.left + 'px';
+    focusedCardClone.style.transform = 'scale(1)';
+
+    // 3. Cleanup after animation
+    setTimeout(() => {
+        if (focusedCardClone && focusedCardClone.parentNode) {
+            focusedCardClone.parentNode.removeChild(focusedCardClone);
+        }
+        originalCard.style.visibility = 'visible'; // Show original back
+        isFocusMode = false;
+        focusedCardClone = null;
+    }, 500); // Match transition duration
 }
 
 function getPointerPos(e) {
@@ -182,6 +260,12 @@ function getPointerPos(e) {
 }
 
 function onMouseDown(e) {
+    if (isFocusMode) return; // Block interaction in focus mode
+
+    dragDistance = 0; // Reset drag distance ALWAYS
+
+    // ALLOW dragging on cards again (so mobile users don't need to find gaps)
+
     if (e.type === 'mousedown' && e.button !== 0) return;
 
     isDragging = true;
@@ -193,8 +277,15 @@ function onMouseDown(e) {
     velocityX = 0;
     velocityY = 0;
 
-    targetRadiusMult = GRAB_RADIUS_MULT;
-    targetItemMult = GRAB_ITEM_MULT;
+    // Only trigger "grab" elasticity if NOT clicking a card
+    // This prevents the "shake" effect when just wanting to tap a card
+    if (e.target.closest('.card-container')) {
+        targetRadiusMult = NORMAL_MULT;
+        targetItemMult = NORMAL_MULT;
+    } else {
+        targetRadiusMult = GRAB_RADIUS_MULT;
+        targetItemMult = GRAB_ITEM_MULT;
+    }
 
     document.body.style.cursor = 'grabbing';
 }
@@ -262,7 +353,8 @@ function animate() {
     currentRadiusMult += (targetRadiusMult - currentRadiusMult) * SCALE_ELASTICITY;
     currentItemMult += (targetItemMult - currentItemMult) * SCALE_ELASTICITY;
 
-    if (!isDragging) {
+    // Stop rotation if in focus mode or dragging
+    if (!isDragging && !isFocusMode) {
         currentRotY += velocityY;
         currentRotX += velocityX;
 

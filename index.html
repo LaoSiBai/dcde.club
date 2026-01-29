@@ -12,6 +12,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap"
         rel="stylesheet">
+    <style>
+        /* Immersive Mode: Lock Scroll */
+        body {
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,6 +33,8 @@
                 <img src="logo-2.svg" alt="DCDE Logo" class="logo">
             </picture>
         </div>
+
+
 
         <!-- Jump Link Bottom Left -->
         <div class="ui-element bottom-left">
@@ -44,31 +54,26 @@
         </div>
     </div>
 
-    <!-- Drawer Overlay -->
-    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <!-- Focus Overlay (Blur Background) -->
+    <div id="focus-overlay"></div>
 
-    <!-- Drawer Panel -->
-    <div class="drawer" id="drawer">
-        <div class="drawer-header">
-            <h2 class="drawer-title" id="drawer-title">Project Title</h2>
-            <button class="drawer-close" id="drawer-close">×</button>
-        </div>
-        <div class="drawer-content">
-            <div class="drawer-meta">
+    <!-- Focused Card Container (Animation Target) -->
+    <div id="focus-card-placeholder"></div>
+
+    <!-- Focus Info Container (Floating Text) -->
+    <div id="focus-info-container">
+        <div class="focus-content">
+            <h2 class="focus-title" id="focus-title">Project Title</h2>
+            <div class="focus-meta">
                 <div>
-                    <div class="drawer-meta-label">项目</div>
-                    <div class="drawer-meta-value" id="drawer-project">—</div>
-                </div>
-                <div>
-                    <div class="drawer-meta-label">链接</div>
-                    <a href="#" class="glow-box drawer-link" id="drawer-link">查看详情 →</a>
+                    <div class="focus-meta-label">项目</div>
+                    <div class="focus-meta-value" id="focus-project">—</div>
                 </div>
             </div>
-            <div>
-                <p class="drawer-description" id="drawer-desc">项目描述将显示在这里。</p>
-                <img src="" alt="Project Image" class="drawer-image" id="drawer-image">
-            </div>
+            <p class="focus-description" id="focus-desc">项目描述。</p>
+            <a href="#" class="jump-link focus-link" id="focus-link">查看详情 →</a>
         </div>
+        <button id="focus-close">×</button>
     </div>
 
     <script src="data.js"></script>

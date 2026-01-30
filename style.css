@@ -144,10 +144,26 @@
         right: var(--grid-margin);
     }
 
-    /* Sub-page Content Spacing Utility */
+    /* Sub-page Spacing Utility */
     .subpage-container {
         padding-top: var(--subpage-pt);
         padding-bottom: var(--subpage-pb);
+        width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+        .subpage-container {
+            padding-top: var(--subpage-pt-mobile);
+            /* Force full width and zero lateral margin to ensure symmetry */
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            /* Use padding for spacing */
+            padding-left: var(--grid-margin);
+            padding-right: var(--grid-margin);
+        }
     }
 
     @media (max-width: 768px) {
@@ -429,7 +445,67 @@
         color: var(--brand-color);
     }
 
-    /* ===== Mobile Responsive ===== */
+    /* Kinetic Box (Info Page) */
+    #kinetic-box {
+        position: relative;
+        width: 100%;
+        height: 800px;
+        margin-bottom: 2rem;
+        background: transparent;
+        overflow: hidden;
+    }
+
+    /* p5 canvas auto-styling */
+    #kinetic-box canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .kinetic-cell {
+        background: var(--border-color);
+        /* Fallback */
+        background: #000;
+        /* Dark bg for cells? Or transparent? */
+        /* Let's match the blue image: Blue Text on Dark BG, or inverse? 
+           Reference image has Blue Text on Dark Background. 
+           But actually Reference 1 is Blue Text on Black. Reference 2 is Gray Blocks.
+           Let's go with Blue Text (Brand) on Black/Dark for "Cool" effect.
+        */
+        color: var(--brand-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        /* Subtle border */
+    }
+
+    .kinetic-cell svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Hover Interaction */
+    .kinetic-cell:hover {
+        background: var(--brand-color);
+        color: #000;
+        /* Invert on hover */
+        z-index: 10;
+        cursor: crosshair;
+    }
+
+    @media (max-width: 768px) {
+        #kinetic-box {
+            height: 500px;
+        }
+
+        .kinetic-cell {
+            font-size: 2rem;
+        }
+    }
+
     @media (max-width: 1024px) {
         :root {
             --grid-cols: 2;

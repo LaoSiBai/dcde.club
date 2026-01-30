@@ -10,16 +10,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
     <style>
         html,
         body {
             overflow-x: hidden;
-            max-width: 100vw;
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             overflow-y: auto;
-            height: auto;
+            min-height: 100vh;
         }
 
 
@@ -85,7 +88,11 @@
 
         @media (max-width: 768px) {
             .page-content {
-                padding: 0 1rem 3rem 1rem;
+                /* Use grid margin variable for consistency */
+                padding: 0 var(--grid-margin) 3rem var(--grid-margin);
+                /* Ensure absolute symmetry */
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .hero-title {
@@ -116,6 +123,10 @@
     <script src="../components/header.js"></script>
 
     <div class="page-content subpage-container layout-grid">
+        <!-- Kinetic Typography Box -->
+        <div id="kinetic-box" class="col-span-4"></div>
+        <script src="../components/kinetic-box.js"></script>
+
         <div class="hero col-span-4">
             <h1 class="hero-title">关于 DCDE</h1>
             <p class="hero-subtitle">在秩序中寻找变量</p>
@@ -126,25 +137,6 @@
             <br><br>
             这就好像我们在构建一个虚拟的物理空间，这里存放着我们的思考、焦虑、试错与最终的输出。这是一场关于成长的漫长实验。
         </p>
-
-        <div class="info-grid col-span-4 layout-grid" style="padding: 0; margin-bottom: 4rem;">
-            <div class="info-block col-span-1">
-                <h2 class="info-block-title">Studio</h2>
-                <p class="info-block-text">思考的实体映射。这里存放所有的设计归档与实验记录。</p>
-            </div>
-            <div class="info-block col-span-1">
-                <h2 class="info-block-title">Collab</h2>
-                <p class="info-block-text">共鸣的发生地。寻找合作伙伴，发起未知的创造。</p>
-            </div>
-            <div class="info-block col-span-1">
-                <h2 class="info-block-title">Hub</h2>
-                <p class="info-block-text">链接年轻的孤岛。进入社区，分享你的锐利观点。</p>
-            </div>
-            <div class="info-block col-span-1">
-                <h2 class="info-block-title">Design System</h2>
-                <p class="info-block-text">视觉规范与交互指南。确保品牌一致性。</p>
-            </div>
-        </div>
 
         <footer class="page-footer col-span-4">
             <span class="footer-text">© 2026 DCDE · Dongchen Design Experiment</span>

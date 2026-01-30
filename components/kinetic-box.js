@@ -1,6 +1,6 @@
 /**
- * Kinetic Box - "DESIGNED FOR BETTER" (17 letters)
- * 4 columns with variable rows per column.
+ * Kinetic Box - "DC DESIGN EXCHANGE" (16 letters)
+ * 4 columns x 4 rows (Perfect Grid).
  * Black background, blue straight-line letters.
  */
 
@@ -13,7 +13,6 @@ const sketch = (p) => {
 
     // Colors from design spec
     let brandColor;  // #338BFF
-    let mutedColor;  // #666666
     let strokeWeight;
 
     // Spring class
@@ -53,27 +52,19 @@ const sketch = (p) => {
         }
     }
 
-    // 17 letters: DESIGNEDFORBETTER
-    // Layout: 4 columns
-    // Col 0: D, E, S, I (4 rows)
-    // Col 1: G, N, E, D (4 rows)
-    // Col 2: F, O, R, B (4 rows)
-    // Col 3: E, T, T, E, R (5 rows)
+    // 16 letters: DCDESIGNEXCHANGE
+    // Layout: 4 columns x 4 rows
     const columns = [
-        ['D', 'E', 'S', 'I'],
-        ['G', 'N', 'E', 'D'],
-        ['F', 'O', 'R', 'B'],
-        ['E', 'T', 'T', 'E', 'R']
+        ['D', 'S', 'E', 'A'],
+        ['C', 'I', 'X', 'N'],
+        ['D', 'G', 'C', 'G'],
+        ['E', 'N', 'H', 'E']
     ];
 
     // Vertical splits (3 lines between 4 columns)
     let vSplits = [];
 
-    // Horizontal splits per column
-    // Col 0: 3 splits for 4 rows
-    // Col 1: 3 splits for 4 rows
-    // Col 2: 3 splits for 4 rows
-    // Col 3: 4 splits for 5 rows
+    // Horizontal splits per column (3 splits for 4 rows)
     let hSplits = [];
 
     p.setup = function () {
@@ -83,24 +74,24 @@ const sketch = (p) => {
         p.createCanvas(w, h).parent('kinetic-box');
 
         brandColor = p.color('#338BFF');
-        mutedColor = p.color('#338BFF10');
 
         // Responsive stroke weight
         strokeWeight = p.width < 768 ? 5 : 10;
 
-        // Initialize vertical splits (min 15% per column)
+        // Initialize vertical splits (min 12% per column)
         vSplits = [
-            new Spring(0.25, 0.15, 0.40),
-            new Spring(0.5, 0.36, 0.64),
-            new Spring(0.75, 0.60, 0.85)
+            new Spring(0.25, 0.12, 0.40),
+            new Spring(0.5, 0.38, 0.62),
+            new Spring(0.75, 0.60, 0.88)
         ];
 
         // Initialize horizontal splits for each column
         for (let col = 0; col < 4; col++) {
-            let numRows = columns[col].length;
             let colSplits = [];
-            // Minimum row height = ~18% of container height
-            let minStep = 0.18;
+            // Minimum row height = 10%
+            let minStep = 0.10;
+            // All columns have 4 rows (3 splits)
+            let numRows = 4;
             for (let i = 0; i < numRows - 1; i++) {
                 let initialPos = (i + 1) / numRows;
                 let minBound = (i + 1) * minStep;
@@ -111,8 +102,16 @@ const sketch = (p) => {
         }
     };
 
+    p.windowResized = function () {
+        let w = container.offsetWidth;
+        let h = container.offsetHeight;
+        p.resizeCanvas(w, h);
+        // Update responsive values
+        strokeWeight = w < 768 ? 5 : 10;
+    };
+
     p.draw = function () {
-        p.background(0);
+        p.background('#101010');
 
         let currentTime = p.millis();
         let W = p.width;
@@ -139,7 +138,7 @@ const sketch = (p) => {
             }
         }
 
-        let pushForce = 0.004;
+        let pushForce = 0.005;
 
         // Update vertical splits with hover
         if (hoveredCol === 0) vSplits[0].vel += pushForce;
@@ -148,8 +147,8 @@ const sketch = (p) => {
         else if (hoveredCol === 3) vSplits[2].vel -= pushForce;
 
         for (let i = 0; i < vSplits.length; i++) {
-            let minC = i === 0 ? 0 : vSplits[i - 1].pos + 0.08;
-            let maxC = i === vSplits.length - 1 ? 1 : vSplits[i + 1].pos - 0.08;
+            let minC = i === 0 ? 0.12 : vSplits[i - 1].pos + 0.12;
+            let maxC = i === vSplits.length - 1 ? 0.88 : vSplits[i + 1].pos - 0.12;
             vSplits[i].maybeChangeTarget(currentTime, minC, maxC);
             vSplits[i].update();
             vSplits[i].constrain(minC, maxC);
@@ -164,15 +163,14 @@ const sketch = (p) => {
                     else if (hoveredRow === i + 1) colSplits[i].vel -= pushForce;
                 }
 
-                let minR = i === 0 ? 0 : colSplits[i - 1].pos + 0.05;
-                let maxR = i === colSplits.length - 1 ? 1 : colSplits[i + 1].pos - 0.05;
+                let minR = i === 0 ? 0.10 : colSplits[i - 1].pos + 0.10;
+                let maxR = i === colSplits.length - 1 ? 0.90 : colSplits[i + 1].pos - 0.10;
                 colSplits[i].maybeChangeTarget(currentTime, minR, maxR);
                 colSplits[i].update();
                 colSplits[i].constrain(minR, maxR);
             }
         }
 
-        // Responsive gap (smaller on mobile)
         let gap = W < 768 ? 1 : 2;
 
         // Column boundaries
@@ -192,31 +190,24 @@ const sketch = (p) => {
                 let y = ys[row];
                 let h = ys[row + 1] - y;
 
-                drawBlock(x, y, w, h, gap, letters[row], W * H);
+                drawBlock(x, y, w, h, gap, letters[row]);
             }
         }
     };
 
-    function drawBlock(x, y, w, h, gap, letter, totalArea) {
+    function drawBlock(x, y, w, h, gap, letter) {
         p.push();
         p.translate(x + gap, y + gap);
         let bw = w - gap * 2;
         let bh = h - gap * 2;
 
-        let pad = 12;
+        let pad = p.width < 768 ? 5 : 12;
         let lx = pad;
         let ly = pad;
         let lw = bw - pad * 2;
         let lh = bh - pad * 2;
 
-        // Calculate color based on cell size (larger = more blue, smaller = more gray)
-        let cellArea = bw * bh;
-        let areaRatio = cellArea / (totalArea / 17); // Compare to average cell size
-        areaRatio = p.constrain(areaRatio, 0.3, 2.0); // Clamp range
-        let t = p.map(areaRatio, 0.3, 2.0, 0, 1); // Normalize to 0-1
-        let cellColor = p.lerpColor(mutedColor, brandColor, t);
-
-        p.stroke(cellColor);
+        p.stroke(brandColor);
         p.strokeWeight(strokeWeight);
         p.strokeCap(p.SQUARE);
         p.noFill();
@@ -237,6 +228,12 @@ const sketch = (p) => {
                 p.line(x + w, y + h * 0.2, x + w, y + h * 0.8);
                 p.line(x + w, y + h * 0.8, x + w * 0.7, y + h);
                 p.line(x + w * 0.7, y + h, x, y + h);
+                break;
+            case 'C':
+                // Angular C
+                p.line(x + w, y, x, y);
+                p.line(x, y, x, y + h);
+                p.line(x, y + h, x + w, y + h);
                 break;
             case 'E':
                 p.line(x, y, x, y + h);
@@ -268,49 +265,23 @@ const sketch = (p) => {
                 p.line(x, y, x + w, y + h);
                 p.line(x + w, y + h, x + w, y);
                 break;
-            case 'F':
-                p.line(x, y, x, y + h);
-                p.line(x, y, x + w, y);
-                p.line(x, y + h * 0.45, x + w * 0.7, y + h * 0.45);
+            case 'A':
+                // Angular A
+                p.line(x, y + h, x + w / 2, y);
+                p.line(x + w / 2, y, x + w, y + h);
+                p.line(x + w * 0.25, y + h * 0.6, x + w * 0.75, y + h * 0.6);
                 break;
-            case 'O':
-                p.line(x, y, x + w, y);
+            case 'X':
+                p.line(x, y, x + w, y + h);
+                p.line(x + w, y, x, y + h);
+                break;
+            case 'H':
+                p.line(x, y, x, y + h);
                 p.line(x + w, y, x + w, y + h);
-                p.line(x + w, y + h, x, y + h);
-                p.line(x, y + h, x, y);
-                break;
-            case 'R':
-                p.line(x, y, x, y + h);
-                p.line(x, y, x + w, y);
-                p.line(x + w, y, x + w, y + h * 0.4);
-                p.line(x + w, y + h * 0.4, x, y + h * 0.45);
-                p.line(x + w * 0.3, y + h * 0.45, x + w, y + h);
-                break;
-            case 'B':
-                p.line(x, y, x, y + h);
-                p.line(x, y, x + w * 0.8, y);
-                p.line(x + w * 0.8, y, x + w, y + h * 0.15);
-                p.line(x + w, y + h * 0.15, x + w, y + h * 0.35);
-                p.line(x + w, y + h * 0.35, x, y + h * 0.5);
-                p.line(x, y + h * 0.5, x + w, y + h * 0.65);
-                p.line(x + w, y + h * 0.65, x + w, y + h * 0.85);
-                p.line(x + w, y + h * 0.85, x + w * 0.8, y + h);
-                p.line(x + w * 0.8, y + h, x, y + h);
-                break;
-            case 'T':
-                p.line(x, y, x + w, y);
-                p.line(x + w / 2, y, x + w / 2, y + h);
+                p.line(x, y + h / 2, x + w, y + h / 2);
                 break;
         }
     }
-
-    p.windowResized = function () {
-        let w = container.offsetWidth;
-        let h = container.offsetHeight;
-        p.resizeCanvas(w, h);
-        // Update responsive values
-        strokeWeight = w < 768 ? 5 : 10;
-    };
 };
 
 if (document.getElementById('kinetic-box')) {

@@ -17,7 +17,7 @@
 
             .project-description {
                 font-size: 1rem;
-                line-height: 1.8;
+                line-height: var(--compact-lh);
             }
 
             .meta-label {
@@ -40,7 +40,7 @@
         <!-- Row 2: 封面图 (跨全屏) -->
         <div class="col-span-4 p-0 cover-square" style="margin-bottom: 4rem;">
             <img src="icon.png"
-                style="width: 100%; height: auto; border-radius: 16px; border: 2px solid var(--border-color);"
+                style="width: 100%; height: auto; border-radius: var(--border-radius); border: var(--border-width) solid var(--border-color);"
                 alt="Cover Image">
         </div>
 
@@ -85,9 +85,9 @@
 
         <div class="gallery col-span-4" style="margin-top: 4rem;">
             <img src="icon.png" alt="Detail 1"
-                style="width: 100%; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                style="width: 100%; border-radius: var(--border-radius); border: var(--border-width) solid var(--border-color); margin-bottom: 2rem;">
             <img src="../biliboard/cover.png" alt="Detail 2"
-                style="width: 100%; border-radius: 12px; border: 1px solid var(--border-color);">
+                style="width: 100%; border-radius: var(--border-radius); border: var(--border-width) solid var(--border-color);">
         </div>
     </div>
 

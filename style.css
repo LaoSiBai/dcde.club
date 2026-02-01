@@ -513,15 +513,15 @@
     }
 
     @media (max-width: 1024px) {
-        :root {
+        & {
             --grid-cols: 2;
         }
     }
 
     @media (max-width: 768px) {
-        :root {
+        & {
             --grid-cols: 1;
-            --grid-margin: 1.5rem;
+            --grid-margin: 1rem;
             --grid-gutter: 2rem;
         }
 

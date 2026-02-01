@@ -131,8 +131,12 @@ function createCards() {
         cardContainer.addEventListener('click', (e) => {
             // Check for click (if not dragged)
             if (dragDistance < 5) {
-                e.preventDefault();
-                enterFocusMode(project, cardContainer);
+                if (isMobileLayout) {
+                    window.location.href = project.link;
+                } else {
+                    e.preventDefault();
+                    enterFocusMode(project, cardContainer);
+                }
             }
         });
         img.ondragstart = () => false;

@@ -1,0 +1,18 @@
+{
+    "siteName": "DCDE",
+    "siteTitle": "DCDE - Design Lab",
+    "copyright": "© 2026 DCDE. All Rights Reserved.",
+    "navigation": {
+        "info": {
+            "label": "Information",
+            "link": "info/index.html"
+        },
+        "collaboration": {
+            "label": "Collaboration",
+            "link": "#"
+        }
+    },
+    "footer": {
+        "text": "© 2026 DCDE · Dongchen Design Exchange"
+    }
+}

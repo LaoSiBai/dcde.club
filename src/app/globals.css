@@ -1,0 +1,745 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+    --bg-color: #101010;
+    --text-color: #ffffff;
+    --brand-color: #338BFF;
+    --text-muted: #666666;
+    --border-color: #222222;
+    --font-main: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+    --border-radius: 6px;
+    --border-width: 2px;
+
+    /* Layout Grid */
+    --grid-margin: 2rem;
+    --grid-gutter: 2rem;
+    --grid-cols: 4;
+    --container-max-width: 1600px;
+
+    /* Spacing Refinement */
+    --compact-lh: 1.25;
+    --tight-spacing: -0.03em;
+    --base-spacing: -0.01em;
+
+    /* Sub-page Spacing Spec */
+    /* Variable for the spacing between header logo and content */
+    --header-content-gap: 3rem;
+
+    --subpage-pt: 8rem;
+    /* Increased base for desktop */
+    --subpage-pb: 4rem;
+
+    /* Mobile: Logo is stacked/taller. Needs more space. */
+    --subpage-pt-mobile: calc(1rem + 280px * 0.4 + var(--header-content-gap));
+    /* Approximate calculation: Grid Margin + Logo Height (est) + Gap */
+    /* Let's set a safe fixed value first based on user request "refer to billboard" - wider is better */
+    --mobile-header-height-clearance: 10rem;
+    /* Adjusted from 10rem */
+
+    /* Typography Scale (Consolidated to 4 levels) - Increased */
+    --text-sm: 0.85rem;
+    /* ~13.6px: Meta, Copyright */
+    --text-base: 1.1rem;
+    /* ~17.6px: Body, Buttons */
+    --text-lg: 1.75rem;
+    /* ~28px: Subheadings, Card Titles */
+    --text-xl: 3rem;
+    /* ~48px: Page Titles */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    p {
+        margin-bottom: 1em;
+    }
+
+    .layout-grid {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-cols), 1fr);
+        gap: var(--grid-gutter);
+        margin: 0;
+        /* Align left */
+        padding-left: var(--grid-margin);
+        padding-right: var(--grid-margin);
+        /* max-width: var(--container-max-width); REMOVED to adapt to logo margin */
+        width: 100%;
+    }
+
+    .col-span-1 {
+        grid-column: span 1;
+    }
+
+    .col-span-2 {
+        grid-column: span 2;
+    }
+
+    .col-span-3 {
+        grid-column: span 3;
+    }
+
+    .col-span-4 {
+        grid-column: span 4;
+    }
+
+    .start-col-3 {
+        grid-column-start: 3;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: var(--font-main);
+        line-height: var(--compact-lh);
+        letter-spacing: var(--base-spacing);
+
+        /* Allow scroll by default for sub-pages */
+        overflow-x: hidden;
+        min-height: 100vh;
+        width: 100%;
+
+        /* Disable text selection globally during drag */
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* UI Overlay Layer */
+    #ui-layer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        pointer-events: none;
+    }
+
+    .ui-element {
+        position: absolute;
+        pointer-events: auto;
+    }
+
+    /* Unified Global Header */
+    .main-header {
+        position: absolute;
+        /* Follow document flow */
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding-top: var(--grid-margin);
+        z-index: 9000;
+        pointer-events: none;
+        background: transparent;
+    }
+
+    .main-logo-link {
+        pointer-events: auto;
+        display: block;
+        width: fit-content;
+    }
+
+    .main-logo {
+        width: 400px;
+        height: auto;
+        display: block;
+    }
+
+    /* Remove hover opacity feedback as requested */
+    .main-logo:hover {
+        opacity: 1;
+    }
+
+    .bottom-left {
+        bottom: var(--grid-margin);
+        left: var(--grid-margin);
+    }
+
+    .bottom-right {
+        bottom: var(--grid-margin);
+        right: var(--grid-margin);
+    }
+
+    /* Sub-page Spacing Utility */
+    .subpage-container {
+        padding-top: var(--subpage-pt);
+        padding-bottom: var(--subpage-pb);
+        width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+        .subpage-container {
+            padding-top: var(--mobile-header-height-clearance) !important;
+            /* Force full width and zero lateral margin to ensure symmetry */
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            /* Use padding for spacing */
+            padding-left: var(--grid-margin);
+            padding-right: var(--grid-margin);
+        }
+    }
+
+    .jump-link {
+        font-size: var(--text-base);
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #fff;
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+    }
+
+    .jump-link:hover,
+    .jump-link:active {
+        opacity: 1;
+        color: var(--brand-color);
+        text-shadow: 0 0 10px rgba(51, 139, 255, 0.5);
+    }
+
+    .copyright {
+        font-size: var(--text-sm);
+        color: #444;
+    }
+
+    /* 3D Scene Container */
+    #scene-container {
+        position: fixed;
+        top: 50%;
+        left: 65%;
+        /* Shifted right for desktop */
+        width: 0;
+        height: 0;
+        z-index: 1;
+    }
+
+    /* Base placeholder - inherits grid positioning from #focus-info-container */
+    /* This selector is overridden below for proper grid alignment */
+
+    #sphere {
+        position: relative;
+    }
+
+    /* Card Styles */
+    .card-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 240px;
+        /* Slightly larger cards */
+        height: 240px;
+        margin-left: -120px;
+        margin-top: -120px;
+        cursor: pointer;
+        /* Changed from grab to pointer as requested */
+        transition: filter 0.3s ease;
+    }
+
+    .card-container:active {
+        cursor: pointer;
+    }
+
+    .card-content {
+        width: 100%;
+        height: 100%;
+        background-color: #111;
+        /* 2. Square Cards with minor radius instead of 50% */
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        position: relative;
+        border: var(--border-width) solid var(--border-color);
+    }
+
+    .card-container:hover .card-content {
+        border-color: var(--brand-color);
+        box-shadow: 0 0 40px rgba(51, 139, 255, 0.4);
+    }
+
+    .card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .card-container:hover .card-img {
+        opacity: 0.3;
+    }
+
+    .card-title {
+        position: absolute;
+        width: calc(100% - 2rem);
+        text-align: left;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        font-size: var(--text-lg);
+        /* 1.4rem -> 1.5rem (unified) */
+        font-weight: 700;
+        letter-spacing: var(--tight-spacing);
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    .card-container:hover .card-title {
+        opacity: 1;
+    }
+
+    /* ===== Unified Button Style ===== */
+    .glow-box {
+        display: inline-block;
+        padding: 1rem 2rem;
+        border: var(--border-width) solid var(--border-color);
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: var(--text-base);
+        font-weight: 500;
+        background: transparent;
+    }
+
+    .glow-box:hover {
+        border-color: var(--brand-color);
+        box-shadow: 0 0 30px rgba(51, 139, 255, 0.4);
+        color: var(--brand-color);
+    }
+
+    /* ===== Focus Interaction ===== */
+
+    /* Overlay with Blur */
+    #focus-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Subtle darken + Blur backdrop */
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        z-index: 9990;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    #focus-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Container for the Zoomed 3D Card */
+    #focus-card-placeholder {
+        grid-column: 1 / span 2;
+        /* Occupy left half on desktop */
+        height: 60vh;
+        /* Responsive height limit */
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9991;
+        pointer-events: none;
+    }
+
+    /* Floating Info Container */
+    #focus-info-container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(var(--grid-cols), 1fr);
+        gap: var(--grid-gutter);
+        padding: 0 var(--grid-margin);
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 9992;
+        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .focus-info-inner {
+        grid-column: 3 / span 2;
+        /* Occupy column 3 and 4 */
+        opacity: 0;
+        transform: translate(20px, 0);
+        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    #focus-info-container.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #focus-info-container.active .focus-info-inner {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    .focus-content {
+        color: var(--text-color);
+    }
+
+    .focus-title {
+        font-size: var(--text-xl);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--brand-color);
+        line-height: 1.05;
+        letter-spacing: var(--tight-spacing);
+    }
+
+    .focus-meta {
+        margin-bottom: 1.5rem;
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .focus-meta-label {
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.2rem;
+    }
+
+    .focus-meta-value {
+        font-size: var(--text-base);
+        font-weight: 500;
+    }
+
+    .focus-description {
+        font-size: var(--text-base);
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        color: #ddd;
+        max-height: 40vh;
+        overflow-y: auto;
+        padding-right: 1rem;
+    }
+
+    .focus-link {
+        display: inline-block;
+        font-size: var(--text-base);
+    }
+
+    /* Close Button */
+    /* Close Button (Desktop Base Style) */
+    /* Close Button (Desktop Base Style) */
+    #focus-close {
+        position: static;
+        background: none;
+        border: none;
+        /* Typography and Color handled by .jump-link */
+        font-family: inherit;
+        /* Ensure font matches link */
+        cursor: pointer;
+        padding-bottom: 1rem;
+        text-align: left;
+    }
+
+    #focus-close:hover {
+        color: var(--brand-color);
+    }
+
+    /* Kinetic Box (Info Page) */
+    #kinetic-box {
+        position: relative;
+        width: 100%;
+        height: 1600px;
+        margin-bottom: 2rem;
+        background: transparent;
+        overflow: hidden;
+    }
+
+    /* p5 canvas auto-styling */
+    #kinetic-box canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .kinetic-cell {
+        background: var(--border-color);
+        /* Fallback */
+        background: #000;
+        /* Dark bg for cells? Or transparent? */
+        /* Let's match the blue image: Blue Text on Dark BG, or inverse? 
+           Reference image has Blue Text on Dark Background. 
+           But actually Reference 1 is Blue Text on Black. Reference 2 is Gray Blocks.
+           Let's go with Blue Text (Brand) on Black/Dark for "Cool" effect.
+        */
+        color: var(--brand-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        /* Subtle border */
+    }
+
+    .kinetic-cell svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Hover Interaction */
+    .kinetic-cell:hover {
+        background: var(--brand-color);
+        color: #000;
+        /* Invert on hover */
+        z-index: 10;
+        cursor: crosshair;
+    }
+
+    @media (max-width: 768px) {
+        #kinetic-box {
+            height: 500px;
+        }
+
+        .kinetic-cell {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        & {
+            --grid-cols: 2;
+        }
+    }
+
+    @media (max-width: 768px) {
+        & {
+            --grid-cols: 1;
+            --grid-margin: 1rem;
+            --grid-gutter: 2rem;
+        }
+
+        /* Force all col-span classes to full width on mobile */
+        .col-span-1,
+        .col-span-2,
+        .col-span-3,
+        .col-span-4 {
+            grid-column: 1 / -1;
+        }
+
+        /* Reset explicit grid-row to allow natural flow */
+        [style*="grid-row"] {
+            grid-row: auto !important;
+        }
+
+        #scene-container {
+            top: 50%;
+            /* Reverted to center */
+            left: 50%;
+        }
+
+        .main-logo {
+            width: 280px;
+        }
+
+        .bottom-left {
+            bottom: 1rem;
+            left: 1rem;
+        }
+
+        .bottom-right {
+            bottom: 1rem;
+            right: 1rem;
+        }
+
+        .logo {
+            width: 300px;
+        }
+
+        .jump-link {
+            font-size: var(--text-base);
+        }
+
+        .glow-box {
+            padding: 0.8rem 1.5rem;
+            font-size: var(--text-sm);
+        }
+
+        /* Mobile Focus Mode - Vertical Stack Layout */
+        #focus-info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1.5rem 2rem;
+            gap: 2rem;
+        }
+
+        #focus-card-placeholder {
+            /* Card area: upper portion */
+            width: 85vw;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .focus-info-inner {
+            /* Text area: lower portion */
+            width: 90%;
+            max-height: 35vh;
+            overflow-y: auto;
+        }
+
+        .focus-title {
+            font-size: var(--text-lg);
+        }
+
+        .focus-description {
+            max-height: 20vh;
+        }
+
+        /* Mobile Close Button override: Fixed X icon */
+        #focus-close {
+            position: fixed !important;
+            top: 2rem;
+            right: 2rem;
+            font-size: 0 !important;
+            /* Hide text */
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            z-index: 9999;
+        }
+
+        #focus-close::after {
+            content: '×';
+            font-size: 2.5rem;
+            color: var(--text-muted);
+            line-height: 40px;
+            display: block;
+            text-align: center;
+        }
+    }
+}
+
+/* Project Detail Page Layout */
+/* Project Detail Page Layout */
+.project-detail-layout {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols), 1fr);
+    gap: var(--grid-gutter);
+    /* Inherit layout-grid alignment properties manually */
+    margin: 0;
+    padding-left: var(--grid-margin);
+    padding-right: var(--grid-margin);
+    width: 100%;
+}
+
+.project-meta {
+    grid-column: 1 / span 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.meta-label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.2rem;
+}
+
+.meta-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.project-content-wrapper {
+    grid-column: 2 / span 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title {
+    font-size: var(--text-xl) !important;
+    font-weight: 700;
+    color: var(--brand-color) !important;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+.project-subtitle {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.3;
+}
+
+.project-description {
+    font-size: var(--text-base);
+    margin-bottom: 2rem;
+}
+
+.gallery {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+    .project-detail-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .project-meta {
+        /* Mobile: Horizontal grid for metadata */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        order: -1;
+        /* Meta First */
+    }
+
+    .project-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        order: 0;
+    }
+
+    .project-title {
+        font-size: 2rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .gallery {
+        margin-top: 2rem;
+        order: 1;
+    }
+}

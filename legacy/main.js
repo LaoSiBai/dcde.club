@@ -45,14 +45,14 @@ let dragDistance = 0;
 let isFocusMode = false; // Track if we are in focus mode
 let focusedCardClone = null; // To store the clone for animation
 
-function init() {
+async function init() {
     checkMode();
     window.addEventListener('resize', () => {
         checkMode();
         rebuildScene();
     });
 
-    createCards();
+    await createCards();
 
     window.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mousemove', onMouseMove);
@@ -91,13 +91,17 @@ function checkMode() {
     }
 }
 
-function rebuildScene() {
+async function rebuildScene() {
     sphere.innerHTML = '';
     cards = [];
-    createCards();
+    await createCards();
 }
 
-function createCards() {
+async function createCards() {
+    // Fetch projects from API
+    let projectsData = await fetchProjects();
+
+    // Duplicate to fill sphere (minimum 50 cards)
     let cardsData = [...projectsData];
     while (cardsData.length < 50) {
         cardsData = cardsData.concat(projectsData);
@@ -115,7 +119,8 @@ function createCards() {
         cardContent.className = 'card-content';
 
         const img = document.createElement('img');
-        img.src = project.image;
+        // Use thumbnail from projects folder
+        img.src = `projects/${project.id}/${project.thumbnail}`;
         img.alt = project.title;
         img.className = 'card-img';
 
@@ -127,15 +132,19 @@ function createCards() {
         cardContent.appendChild(title);
         cardContainer.appendChild(cardContent);
 
+        // Build project link
+        const projectLink = `projects/${project.id}/`;
+
         // Click to open drawer (only if not dragging)
         cardContainer.addEventListener('click', (e) => {
             // Check for click (if not dragged)
             if (dragDistance < 5) {
                 if (isMobileLayout) {
-                    window.location.href = project.link;
+                    window.location.href = projectLink;
                 } else {
                     e.preventDefault();
-                    enterFocusMode(project, cardContainer);
+                    // Pass link for focus mode
+                    enterFocusMode({ ...project, link: projectLink }, cardContainer);
                 }
             }
         });
@@ -165,7 +174,7 @@ function enterFocusMode(data, originalCard) {
     // 1. Populate Info
     focusTitle.innerText = data.title;
     focusProject.innerText = data.type;
-    focusDesc.innerText = data.description || '暂无描述';
+    focusDesc.innerText = data.summary || '暂无描述';
     focusLink.href = data.link;
 
     // 2. Lock Sphere Interaction

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bili-Board 2025 - DCDE</title>
+    <title id="page-title">Project - DCDE</title>
     <link rel="icon" type="image/svg+xml" href="../logo-1.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +21,6 @@
             overflow-y: auto;
             height: auto;
         }
-
-
 
         .page-content {
             max-width: 1200px;
@@ -87,6 +85,20 @@
             border: var(--border-width) solid var(--border-color);
         }
 
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-muted);
+        }
+
+        /* Error state */
+        .error {
+            text-align: center;
+            padding: 4rem;
+            color: #ff4444;
+        }
+
         @media (max-width: 768px) {
             .page-content {
                 padding-left: var(--grid-margin) !important;
@@ -102,7 +114,6 @@
                 font-size: 1.8rem;
             }
 
-            /* Stack meta and content vertically */
             .meta-section {
                 order: 2;
             }
@@ -119,46 +130,45 @@
     <script src="../components/header.js"></script>
 
     <div class="page-content layout-grid subpage-container">
-
-        <div class="content-grid col-span-4 layout-grid" style="padding: 0;">
-            <div class="meta-section col-span-1">
-                <div>
-                    <div class="meta-label">合作方</div>
-                    <div class="meta-value">Bili-Board_Atel</div>
-                </div>
-                <div>
-                    <div class="meta-label">设计师</div>
-                    <div class="meta-value">LaoSiBai</div>
-                </div>
-                <div>
-                    <div class="meta-label">时间</div>
-                    <div class="meta-value">2025-7</div>
-                </div>
-            </div>
-
-            <div class="col-span-3">
-                <h1 class="project-title">Bili-Board 2025<br>视觉包装</h1>
-                <div class="project-description">
-                    <p>
-                        自 2024 年成立以来，Bili-Board 始终致力于构建公正、公开且深度契合本土 B 站生态数据的 VOCALOID 音乐榜单体系。随着 2025
-                        年业务版图的拓展，Bili-Board_Atel 陆续推出了「传说曲周榜」、「竖屏周榜速递」等细分榜单矩阵，这对品牌视觉系统的兼容性与延展性提出了更高标准。
-                    </p>
-                    <p>
-                        本次 Bili-Board 2025
-                        全系视觉包装项目，旨在解决多频道并发下的视觉统一性问题。在设计策略上，我们审慎延续了上一代「简约、柔和、直观」的品牌视觉基因，以确保核心用户群体对品牌认知的连续性与稳定性。
-                    </p>
-                    <p>
-                        设计的核心突破点在于信息可视化系统的重构。针对新加入的竖屏媒介与多元化数据维度，我们对版面逻辑进行了深度优化。通过重塑数据排版规范，我们在保持画面呼吸感的同时，大幅提升了高密度信息在不同终端的易读性与传达效率，成功实现了从单一榜单向综合性数据厂牌的视觉进化。
-                    </p>
-                </div>
-            </div>
+        <!-- Loading State -->
+        <div id="loading" class="loading col-span-4">
+            加载中...
         </div>
-        <div class="gallery col-span-4" style="margin-top: 4rem;">
-            <img src="item.png" alt="Detail 1">
-            <img src="cover.png" alt="Detail 2">
+
+        <!-- Error State (hidden by default) -->
+        <div id="error" class="error col-span-4" style="display: none;">
+            项目未找到
+        </div>
+
+        <!-- Content (hidden until loaded) -->
+        <div id="content" class="col-span-4" style="display: none;">
+            <div class="content-grid">
+                <div class="meta-section">
+                    <div>
+                        <div class="meta-label">合作方</div>
+                        <div class="meta-value" id="meta-collaborator">—</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">设计师</div>
+                        <div class="meta-value" id="meta-designer">—</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">时间</div>
+                        <div class="meta-value" id="meta-date">—</div>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <h1 class="project-title" id="project-title">—</h1>
+                    <div class="project-description" id="project-description"></div>
+                </div>
+            </div>
+            <div class="gallery" id="gallery" style="margin-top: 4rem;"></div>
         </div>
     </div>
 
+    <script src="../services/api.js"></script>
+    <script src="renderer.js"></script>
 </body>
 
 </html>

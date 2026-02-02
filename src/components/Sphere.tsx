@@ -275,6 +275,15 @@ export default function Sphere() {
     };
 
     useEffect(() => {
+        // Lock body scroll and touch actions to prevent pull-to-refresh on mobile
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        const originalTouchAction = document.body.style.touchAction;
+        const originalOverscroll = document.body.style.overscrollBehavior;
+
+        document.body.style.overflow = 'hidden';
+        document.body.style.touchAction = 'none';
+        document.body.style.overscrollBehavior = 'none';
+
         // Initialize
         const checkMode = () => {
             state.current.isMobile = window.innerWidth < 768;
@@ -312,6 +321,11 @@ export default function Sphere() {
         return () => {
             window.removeEventListener('resize', checkMode);
             if (requestRef.current) cancelAnimationFrame(requestRef.current);
+
+            // Restore body styles
+            document.body.style.overflow = originalStyle;
+            document.body.style.touchAction = originalTouchAction;
+            document.body.style.overscrollBehavior = originalOverscroll;
         };
     }, []);
 
@@ -387,12 +401,13 @@ export default function Sphere() {
             ref={containerRef}
             style={{ 
                 width: '100%', 
-                height: '100vh', 
+                height: '100dvh', // Use dynamic viewport height
                 position: 'fixed', 
                 top: 0, 
                 left: 0, 
                 overflow: 'hidden',
-                touchAction: 'none' // Prevent browser scroll/refresh
+                touchAction: 'none',
+                overscrollBehavior: 'none'
             }}
         >
             {/* scene-container positioning comes from CSS (left: 65% desktop, left: 50% mobile) */}

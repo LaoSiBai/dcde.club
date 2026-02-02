@@ -74,6 +74,7 @@ export default async function ProjectPage({ params }: PageProps) {
                     />
                 ))}
             </div>
+            </div>
         </>
     );
 }

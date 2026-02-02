@@ -115,13 +115,8 @@
 
     /* Unified Global Header */
     .main-header {
-        position: absolute;
-        /* Follow document flow */
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding-top: var(--grid-margin);
-        z-index: 9000;
+        /* Positioning is handled by component props (absolute vs relative) */
+        /* padding-top is also handled by component props */
         pointer-events: none;
         background: transparent;
     }
@@ -155,7 +150,7 @@
 
     /* Sub-page Spacing Utility */
     .subpage-container {
-        padding-top: var(--subpage-pt);
+        /* padding-top removed: Header is now relative and pushes content down */
         padding-bottom: var(--subpage-pb);
         width: 100%;
         margin: 0 auto;
@@ -164,7 +159,7 @@
 
     @media (max-width: 768px) {
         .subpage-container {
-            padding-top: var(--mobile-header-height-clearance) !important;
+            /* padding-top removed */
             /* Force full width and zero lateral margin to ensure symmetry */
             width: 100% !important;
             margin-left: 0 !important;

@@ -1,0 +1,136 @@
+.sg-header {
+    margin-bottom: 4rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2rem;
+}
+
+.sg-title {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--brand-color);
+    line-height: 1.1;
+}
+
+.sg-section {
+    margin-bottom: 6rem;
+}
+
+.sg-section-title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    border-left: 4px solid var(--brand-color);
+    color: var(--text-color);
+}
+
+/* Typography Grid */
+.type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.type-label {
+    width: 120px;
+    font-family: monospace;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    flex-shrink: 0;
+}
+
+.type-preview {
+    color: var(--text-color);
+}
+
+/* Color Grid */
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.color-card {
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: #111;
+}
+
+.color-swatch {
+    height: 120px;
+    width: 100%;
+}
+
+.color-info {
+    padding: 1rem;
+}
+
+.color-name {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.color-var {
+    font-family: monospace;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    display: block;
+}
+
+/* Components Grid */
+.component-demos {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.demo-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.demo-label {
+    width: 150px;
+    font-weight: 500;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .type-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .type-label {
+        width: auto;
+        color: var(--brand-color);
+    }
+
+    .demo-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .demo-label {
+        width: auto;
+        margin-bottom: 1rem;
+    }
+
+    .color-grid {
+        grid-template-columns: 1fr;
+    }
+}

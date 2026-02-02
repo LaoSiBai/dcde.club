@@ -7,17 +7,15 @@ interface HeaderProps {
 }
 
 export default function Header({ position = 'absolute' }: HeaderProps) {
-    // Original logic:
-    // - Mobile (max-width: 768px): always logo-3.svg (small logo with text)
-    // - Desktop: always logo-2.svg (large DCDE letters)
-    
-    const style: React.CSSProperties = position === 'absolute' 
-        ? { position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 1000, pointerEvents: 'none' }
-        : { position: 'relative', width: '100%', zIndex: 1000, pointerEvents: 'none', marginBottom: '2rem', paddingTop: '2rem' };
+    // Responsive logo switching:
+    // - Mobile (max-width: 768px): logo-3.svg (compact logo)
+    // - Desktop: logo-2.svg (large DCDE letters)
+
+    const positionClass = position === 'absolute' ? 'header--absolute' : 'header--relative';
 
     return (
-        <header className="main-header layout-grid" style={style}>
-            <Link href="/" className="main-logo-link col-span-1" style={{ pointerEvents: 'auto' }}>
+        <header className={`main-header layout-grid ${positionClass}`}>
+            <Link href="/" className="main-logo-link col-span-1">
                 <picture>
                     <source srcSet="/logo-3.svg" media="(max-width: 768px)" />
                     <img src="/logo-2.svg" alt="DCDE Logo" className="main-logo" />

@@ -9,6 +9,7 @@ export default function Home() {
 
       <div className="ui-element bottom-left" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <a href="/info" className="jump-link">Information →</a>
+        <a href="/styleguide" className="jump-link">Styleguide →</a>
         <a href="#" className="jump-link">Collaboration →</a>
       </div>
 

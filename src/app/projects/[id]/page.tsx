@@ -35,45 +35,45 @@ export default async function ProjectPage({ params }: PageProps) {
             <div className="page-content subpage-container project-detail-layout">
                 {/* Meta Section (Col 1) */}
                 <div className="project-meta">
-                <div>
-                    <div className="meta-label">合作方</div>
-                    <div className="meta-value">{project.meta.collaborator}</div>
-                </div>
-                <div>
-                    <div className="meta-label">设计师</div>
-                    <div className="meta-value">{project.meta.designer}</div>
-                </div>
-                <div>
-                    <div className="meta-label">时间</div>
-                    <div className="meta-value">{project.meta.date}</div>
-                </div>
-            </div>
-
-            {/* Content Wrapper (Col 2-4) */}
-            <div className="project-content-wrapper">
-                <h1 className="project-title">{project.title}</h1>
-                {project.subtitle && <h2 className="project-subtitle">{project.subtitle}</h2>}
-
-                <div className="project-body">
-                    <div className="project-description">
-                        {project.description.map((para, i) => (
-                            <p key={i} style={{ marginBottom: '1rem' }}>{para}</p>
-                        ))}
+                    <div>
+                        <div className="meta-label">合作方</div>
+                        <div className="meta-value">{project.meta.collaborator}</div>
+                    </div>
+                    <div>
+                        <div className="meta-label">设计师</div>
+                        <div className="meta-value">{project.meta.designer}</div>
+                    </div>
+                    <div>
+                        <div className="meta-label">时间</div>
+                        <div className="meta-value">{project.meta.date}</div>
                     </div>
                 </div>
-            </div>
 
-            {/* Gallery (Col 1-4) */}
-            <div className="gallery">
-                {project.images.map((img, i) => (
-                    <img
-                        key={i}
-                        src={getImagePath(img)}
-                        alt={`${project.title} - ${i}`}
-                        style={{ width: '100%', borderRadius: 'var(--border-radius)', border: '1px solid var(--border-color)' }}
-                    />
-                ))}
-            </div>
+                {/* Content Wrapper (Col 2-4) */}
+                <div className="project-content-wrapper">
+                    <h1 className="project-title">{project.title}</h1>
+                    {project.subtitle && <h2 className="project-subtitle">{project.subtitle}</h2>}
+
+                    <div className="project-body">
+                        <div className="project-description">
+                            {project.description.map((para, i) => (
+                                <p key={i} style={{ marginBottom: '1rem' }}>{para}</p>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Gallery (Col 1-4) */}
+                <div className="gallery">
+                    {project.images.map((img, i) => (
+                        <img
+                            key={i}
+                            src={getImagePath(img)}
+                            alt={`${project.title} - ${i}`}
+                            style={{ width: '100%', borderRadius: 'var(--border-radius)', border: '1px solid var(--border-color)' }}
+                        />
+                    ))}
+                </div>
             </div>
         </>
     );

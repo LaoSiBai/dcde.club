@@ -25,16 +25,8 @@
     /* Variable for the spacing between header logo and content */
     --header-content-gap: 3rem;
 
-    --subpage-pt: 8rem;
     /* Increased base for desktop */
     --subpage-pb: 4rem;
-
-    /* Mobile: Logo is stacked/taller. Needs more space. */
-    --subpage-pt-mobile: calc(1rem + 280px * 0.4 + var(--header-content-gap));
-    /* Approximate calculation: Grid Margin + Logo Height (est) + Gap */
-    /* Let's set a safe fixed value first based on user request "refer to billboard" - wider is better */
-    --mobile-header-height-clearance: 10rem;
-    /* Adjusted from 10rem */
 
     /* Typography Scale (Consolidated to 4 levels) - Increased */
     --text-sm: 0.85rem;

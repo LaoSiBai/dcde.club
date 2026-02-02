@@ -2,14 +2,21 @@
 
 import Link from 'next/link';
 
-export default function Header() {
+interface HeaderProps {
+    position?: 'absolute' | 'relative';
+}
+
+export default function Header({ position = 'absolute' }: HeaderProps) {
     // Original logic:
     // - Mobile (max-width: 768px): always logo-3.svg (small logo with text)
     // - Desktop: always logo-2.svg (large DCDE letters)
-    // The page location doesn't affect which logo is shown.
+    
+    const style: React.CSSProperties = position === 'absolute' 
+        ? { position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 1000, pointerEvents: 'none' }
+        : { position: 'relative', width: '100%', zIndex: 1000, pointerEvents: 'none', marginBottom: '2rem', paddingTop: '2rem' };
 
     return (
-        <header className="main-header layout-grid" style={{ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 1000, pointerEvents: 'none' }}>
+        <header className="main-header layout-grid" style={style}>
             <Link href="/" className="main-logo-link col-span-1" style={{ pointerEvents: 'auto' }}>
                 <picture>
                     <source srcSet="/logo-3.svg" media="(max-width: 768px)" />

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "DCDE - Design Lab",
@@ -21,11 +20,7 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/logo-1.svg" />
       </head>
       <body>
-        <Header />
-
         {children}
-
-
       </body>
     </html>
   );

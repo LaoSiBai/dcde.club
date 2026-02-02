@@ -385,7 +385,15 @@ export default function Sphere() {
             onTouchMove={handleMove}
             onTouchEnd={handleUp}
             ref={containerRef}
-            style={{ width: '100%', height: '100vh', position: 'fixed', top: 0, left: 0, overflow: 'hidden' }}
+            style={{ 
+                width: '100%', 
+                height: '100vh', 
+                position: 'fixed', 
+                top: 0, 
+                left: 0, 
+                overflow: 'hidden',
+                touchAction: 'none' // Prevent browser scroll/refresh
+            }}
         >
             {/* scene-container positioning comes from CSS (left: 65% desktop, left: 50% mobile) */}
             <div id="scene-container">

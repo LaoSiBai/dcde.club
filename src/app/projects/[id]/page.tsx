@@ -1,5 +1,6 @@
 import { getProjectById, getAllProjects } from '@/lib/api';
 import { notFound } from 'next/navigation';
+import Header from '@/components/Header';
 
 interface PageProps {
     params: Promise<{
@@ -29,9 +30,11 @@ export default async function ProjectPage({ params }: PageProps) {
     };
 
     return (
-        <div className="page-content subpage-container project-detail-layout">
-            {/* Meta Section (Col 1) */}
-            <div className="project-meta">
+        <>
+            <Header position="relative" />
+            <div className="page-content subpage-container project-detail-layout">
+                {/* Meta Section (Col 1) */}
+                <div className="project-meta">
                 <div>
                     <div className="meta-label">合作方</div>
                     <div className="meta-value">{project.meta.collaborator}</div>
@@ -71,6 +74,6 @@ export default async function ProjectPage({ params }: PageProps) {
                     />
                 ))}
             </div>
-        </div>
+        </>
     );
 }

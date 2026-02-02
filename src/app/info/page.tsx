@@ -6,8 +6,8 @@ export default function InfoPage() {
             <Header position="relative" />
             <div className="page-content subpage-container layout-grid">
                 <div className="hero col-span-4">
-                    <h1 className="hero-title">关于 DCDE</h1>
-                    <p className="hero-subtitle">在秩序中寻找变量</p>
+                    <h1 className="project-title">关于 DCDE</h1>
+                    <p className="project-subtitle">在秩序中寻找变量</p>
                 </div>
 
                 <p className="main-text col-span-4">

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export const metadata: Metadata = {
-  title: "DCDE - Design Lab",
-  description: "DongChen Design Exchange Studio",
+  title: "DCDE",
+  description: "Through the lens of DCDE, we reshape original visual assets.",
 };
 
 export default function RootLayout({
@@ -12,15 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
-        <link rel="icon" type="image/svg+xml" href="/logo-1.svg" />
-      </head>
+    <html lang="en">
       <body>
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

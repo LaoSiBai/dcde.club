@@ -8,7 +8,7 @@ export default function Home() {
         <div className="logo-col">
           {/* Logo Placeholder */}
           <div className="logo-placeholder">
-            <Image src="/logo.svg" alt="DCDE Logo" width={335} height={340} style={{ width: '100%', height: 'auto', display: 'block' }} priority />
+            <img src="/logo.svg" alt="DCDE Logo" style={{ width: '100%', height: 'auto', display: 'block' }} />
           </div>
         </div>
         <div className="header-info-col">

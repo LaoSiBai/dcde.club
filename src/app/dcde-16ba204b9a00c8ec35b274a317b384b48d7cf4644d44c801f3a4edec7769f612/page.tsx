@@ -12,11 +12,11 @@ export default function DreamiragePreviewPage() {
                 项目名称：Dreamirage 官网重构
               </p>
               <p className="text-sm" style={{ marginBottom: '40px' }}>
-                项目标号：#dcde202604
+                项目编号：#dcde202604
               </p>
               
               <p className="text-sm" style={{ marginBottom: '60px' }}>
-                一切就绪后，在此您将可以预览您网站的开发进度。
+                一切就绪后，您将可以在此预览网站的开发进度。
               </p>
             </div>
 
